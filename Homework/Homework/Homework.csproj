@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="GitHomework\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GitHomework\" />
+  </ItemGroup>
 </Project>
