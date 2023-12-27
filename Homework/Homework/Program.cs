@@ -1,4 +1,4 @@
-﻿namespace Homework
+﻿namespace Homework4
 {
     class Program
     {
@@ -33,7 +33,6 @@
             Console.WriteLine(@"[Second task] An array of integers A[20] is given.
 Create another array of integers B[20], which will include all the numbers of the original array that satisfy the condition:
 A[i] <= 888, and then sort the elements of the array B[20] in descending order.");
-
 
             int[] randomArray = ArrayGenerator.GenerateValues(20, 0, 1000);
 

@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="StringCheckLibrary\StringCheckLibrary.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="StringCheckLibrary\obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.cs" />
+    <Compile Remove="StringCheckLibrary\obj\Debug\net7.0\CharCheckLibrary.GlobalUsings.g.cs" />
+    <Compile Remove="StringCheckLibrary\obj\Debug\net7.0\CharCheckLibrary.AssemblyInfo.cs" />
+    <Compile Remove="StringCheckLibrary\obj\Debug\net7.0\StringCheckLibrary.AssemblyInfo.cs" />
+    <Compile Remove="StringCheckLibrary\obj\Debug\net7.0\StringCheckLibrary.GlobalUsings.g.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="StringCheckLibrary\obj\CharCheckLibrary.csproj.nuget.g.props" />
+    <None Remove="StringCheckLibrary\obj\CharCheckLibrary.csproj.nuget.g.targets" />
+    <None Remove="StringCheckLibrary\obj\CharCheckLibrary.csproj.nuget.dgspec.json" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\CharCheckLibrary.csproj.AssemblyReference.cache" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\CharCheckLibrary.csproj.FileListAbsolute.txt" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\CharCheckLibrary.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\CharCheckLibrary.AssemblyInfoInputs.cache" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\CharCheckLibrary.csproj.CoreCompileInputs.cache" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\CharCheckLibrary.assets.cache" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\refint\StringCheckLibrary.dll" />
+    <None Remove="StringCheckLibrary\bin\Debug\net7.0\StringCheckLibrary.deps.json" />
+    <None Remove="StringCheckLibrary\bin\Debug\net7.0\StringCheckLibrary.dll" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\ref\StringCheckLibrary.dll" />
+    <None Remove="StringCheckLibrary\bin\Debug\net7.0\StringCheckLibrary.pdb" />
+    <None Remove="StringCheckLibrary\obj\StringCheckLibrary.csproj.nuget.g.props" />
+    <None Remove="StringCheckLibrary\obj\project.nuget.cache" />
+    <None Remove="StringCheckLibrary\obj\StringCheckLibrary.csproj.nuget.g.targets" />
+    <None Remove="StringCheckLibrary\obj\StringCheckLibrary.csproj.nuget.dgspec.json" />
+    <None Remove="StringCheckLibrary\obj\project.assets.json" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\StringCheckLibrary.AssemblyInfoInputs.cache" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\StringCheckLibrary.csproj.AssemblyReference.cache" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\StringCheckLibrary.assets.cache" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\StringCheckLibrary.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\StringCheckLibrary.csproj.CoreCompileInputs.cache" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\StringCheckLibrary.dll" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\StringCheckLibrary.pdb" />
+    <None Remove="StringCheckLibrary\obj\Debug\net7.0\StringCheckLibrary.csproj.FileListAbsolute.txt" />
+  </ItemGroup>
+</Project>
