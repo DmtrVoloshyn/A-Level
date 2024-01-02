@@ -2,30 +2,21 @@
 {
     public class ArrayProcessor
     {
-        public static (int[] evenArray, int[] oddArray) DivideIntoEvenAndOdd(int[] numbers)
+        public static int[] DivideIntoEvenOrOdd(int[] numbers, bool even)
         {
-            int[] evenArray = new int[numbers.Length];
-            int[] oddArray = new int[numbers.Length];
-
-            int evenCount = 0;
-            int oddCount = 0;
+            int[] resultArray = new int[numbers.Length];
+            int resultCount = 0;
 
             foreach (var number in numbers)
             {
-                if ((number % 2) == 0)
+                if (number % 2 == 0 == even)
                 {
-                    evenArray[evenCount++] = number;
-                }
-                else
-                {
-                    oddArray[oddCount++] = number;
+                    resultArray[resultCount++] = number;
                 }
             }
 
-            Array.Resize(ref evenArray, evenCount);
-            Array.Resize(ref oddArray, oddCount);
-
-            return (evenArray, oddArray);
+            Array.Resize(ref resultArray, resultCount);
+            return resultArray;
         }
 
         public static string[] NumbersToLetters(int[] numbers)

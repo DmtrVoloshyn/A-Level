@@ -12,7 +12,8 @@ namespace Homework4
             int arrayLenght = int.TryParse(input, out int result) ? result : 0;
 
             int[] array = ArrayGenerator.GenerateValues(arrayLenght, 1, 26);
-            (int[] evenArray, int[] oddArray) = ArrayProcessor.DivideIntoEvenAndOdd(array);
+            int[] evenArray = ArrayProcessor.DivideIntoEvenOrOdd(array, true);
+            int[] oddArray = ArrayProcessor.DivideIntoEvenOrOdd(array, false);
 
             string[] lettersArrayFromEvenNumbers = ArrayProcessor.NumbersToLetters(evenArray);
             string[] lettersArrayFromOddNumbers = ArrayProcessor.NumbersToLetters(oddArray);
