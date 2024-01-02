@@ -1,5 +1,5 @@
-﻿using StringCheckLibrary;
-using ArrayProcessing;
+﻿using ArrayProcessing;
+using StringCheckLibrary;
 
 namespace Homework4
 {

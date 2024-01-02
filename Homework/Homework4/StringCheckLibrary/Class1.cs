@@ -2,22 +2,22 @@
 {
     public class StringChecker
     {
-        private static readonly string[] ValidStrings = { "a", "e", "i", "d", "h", "j" };
+        private static readonly char[] ValidChars = { 'a', 'e', 'i', 'd', 'h', 'j' };
 
-        public static bool IsStringValid(string inputString)
+        public static bool IsStringValid(char inputString)
         {
-            return Array.IndexOf(ValidStrings, inputString) != -1;
+            return Array.IndexOf(ValidChars, inputString) != -1;
         }
 
         public static string[] CheckArray(string[] inputArray)
         {
             for (int i = 0; i < inputArray.Length; i++)
             {
-                string currentString = inputArray[i];
+                char firstCharacterOfCurrentString = inputArray[i][0];
 
-                if (IsStringValid(currentString))
+                if (IsStringValid(firstCharacterOfCurrentString))
                 {
-                    inputArray[i] = currentString.ToUpper();
+                    inputArray[i] = char.ToUpper(firstCharacterOfCurrentString).ToString();
                 }
             }
 
