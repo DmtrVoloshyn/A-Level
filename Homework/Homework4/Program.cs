@@ -26,6 +26,11 @@ namespace Homework4
             var countUpperLettersInArrayFromEvenNumbers = StringChecker.CountUpperLetters(lettersArrayFromEvenNumbers);
             var countUpperLettersInArrayFromOddNumbers = StringChecker.CountUpperLetters(lettersArrayFromOddNumbers);
 
+            CompareUpperLettersCountAndReturnResultToConsole(countUpperLettersInArrayFromEvenNumbers, countUpperLettersInArrayFromOddNumbers);
+        }
+
+        private static void CompareUpperLettersCountAndReturnResultToConsole(int countUpperLettersInArrayFromEvenNumbers, int countUpperLettersInArrayFromOddNumbers)
+        {
             if (countUpperLettersInArrayFromEvenNumbers > countUpperLettersInArrayFromOddNumbers)
             {
                 Console.WriteLine($"Letters array from the even numbers has more capital letters: {countUpperLettersInArrayFromEvenNumbers}");
