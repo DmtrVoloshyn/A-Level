@@ -21,7 +21,7 @@
 				};
 			}
 
-            logger.WriteLogsToFile();
+            logger.WriteLogsWithConfirmation();
         }
     }
 }

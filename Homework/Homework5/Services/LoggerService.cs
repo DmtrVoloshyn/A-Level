@@ -5,6 +5,7 @@ class Logger
 {
     private static Logger? instance;
     private string received_log = "";
+    private readonly string logFile = "log.txt";
 
     private Logger() { }
 
@@ -35,7 +36,7 @@ class Logger
             LogLevel.Info => Console.ForegroundColor = ConsoleColor.Green,
             LogLevel.Warning => Console.ForegroundColor = ConsoleColor.DarkYellow,
             LogLevel.Error => Console.ForegroundColor = ConsoleColor.DarkRed,
-            _ => throw new NotImplementedException()
+            _ => ConsoleColor.White
         };
     }
 
@@ -49,10 +50,36 @@ class Logger
 
         Console.WriteLine(formattedLog);
         received_log += formattedLog + "\n";
+
+        Console.ForegroundColor = ConsoleColor.White;
     }
 
-    public void WriteLogsToFile()
+    private void WriteLogsToFile()
     {
-        File.WriteAllText("log.txt", received_log);
+        File.WriteAllText(logFile, received_log);
+    }
+
+    public void WriteLogsWithConfirmation()
+    {
+        ConsoleKeyInfo confirmationResult;
+
+        Console.Write($"Do you want to save logs to {logFile}? Y/N: ");
+
+        do
+        {
+            confirmationResult = Console.ReadKey();
+        }
+        while (confirmationResult.Key != ConsoleKey.Y && confirmationResult.Key != ConsoleKey.N);
+
+        if (confirmationResult.Key == ConsoleKey.Y)
+        {
+            WriteLogsToFile();
+            Console.WriteLine("\nLogs saved.");
+        }
+        else
+        {
+            Console.WriteLine("\nLogs will not be saved.");
+        }
+        
     }
 }
