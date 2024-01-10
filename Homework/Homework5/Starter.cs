@@ -2,8 +2,6 @@
 {
 	public class Starter
 	{
-        readonly Actions actions = new();
-
         public void Run()
 		{
 
@@ -13,9 +11,9 @@
 
                 _ = random switch
 				{
-					1 => actions.FirstMethod(),
-					2 => actions.SecondMethod(),
-					_ => actions.ThirdMethod()
+					1 => Actions.FirstMethod(),
+					2 => Actions.SecondMethod(),
+					_ => Actions.ThirdMethod()
 				};
 			}
 
