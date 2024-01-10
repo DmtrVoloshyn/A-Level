@@ -18,29 +18,6 @@ class Logger
         }
     }
 
-    private static string FormatLog(string logTime, LogLevel logLevel, string logMessage)
-    {
-        StringBuilder formattedLog = new();
-
-        formattedLog.Append($"{logTime}: ");
-        formattedLog.Append($"{logLevel}: ");
-        formattedLog.Append(logMessage);
-
-        return formattedLog.ToString();
-    }
-
-    private static void ChangeLogColor(LogLevel loglevel)
-    {
-        _ = loglevel switch
-        {
-            LogLevel.Info => Console.ForegroundColor = ConsoleColor.Green,
-            LogLevel.Warning => Console.ForegroundColor = ConsoleColor.DarkYellow,
-            LogLevel.Error => Console.ForegroundColor = ConsoleColor.DarkRed,
-            _ => ConsoleColor.White
-        };
-    }
-
-
     public void Log(LogLevel logLevel, string logMessage)
     {
         ChangeLogColor(logLevel);
@@ -52,11 +29,6 @@ class Logger
         received_log += formattedLog + "\n";
 
         Console.ForegroundColor = ConsoleColor.White;
-    }
-
-    private void WriteLogsToFile()
-    {
-        File.WriteAllText(logFile, received_log);
     }
 
     public void WriteLogsWithConfirmation()
@@ -80,6 +52,32 @@ class Logger
         {
             Console.WriteLine("\nLogs will not be saved.");
         }
-        
+    }
+
+    private void WriteLogsToFile()
+    {
+        File.WriteAllText(logFile, received_log);
+    }
+
+    private static string FormatLog(string logTime, LogLevel logLevel, string logMessage)
+    {
+        StringBuilder formattedLog = new();
+
+        formattedLog.Append($"{logTime}: ");
+        formattedLog.Append($"{logLevel}: ");
+        formattedLog.Append(logMessage);
+
+        return formattedLog.ToString();
+    }
+
+    private static void ChangeLogColor(LogLevel loglevel)
+    {
+        _ = loglevel switch
+        {
+            LogLevel.Info => Console.ForegroundColor = ConsoleColor.Green,
+            LogLevel.Warning => Console.ForegroundColor = ConsoleColor.DarkYellow,
+            LogLevel.Error => Console.ForegroundColor = ConsoleColor.DarkRed,
+            _ => ConsoleColor.White
+        };
     }
 }

@@ -3,8 +3,6 @@
 	public class Starter
 	{
         readonly Actions actions = new();
-        readonly Logger logger = Logger.Instance;
-
 
         public void Run()
 		{
@@ -21,7 +19,7 @@
 				};
 			}
 
-            logger.WriteLogsWithConfirmation();
+            Logger.Instance.WriteLogsWithConfirmation();
         }
     }
 }
