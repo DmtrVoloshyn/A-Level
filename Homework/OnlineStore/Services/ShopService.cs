@@ -43,14 +43,14 @@ namespace Services
                     iterator++;
                 }
 
-            } while (ShouldContinueShopping());
+            } while (IfContinueShopping());
 
             customerSelection = customerSelections.ToArray();
 
             _cartProcessingService.CreateCart(customerSelection, cartId);
         }
 
-        private static bool ShouldContinueShopping()
+        private static bool IfContinueShopping()
         {
             ConsoleKeyInfo confirmationResult;
 

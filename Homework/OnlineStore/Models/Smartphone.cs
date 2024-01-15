@@ -1,5 +1,4 @@
-﻿using Entities;
-using Enums;
+﻿using Enums;
 
 namespace Models
 {
@@ -9,4 +8,3 @@ namespace Models
         public int Memory { get; set; }
     }
 }
-
