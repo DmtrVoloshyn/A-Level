@@ -17,7 +17,7 @@ namespace Services
                         Price = 1425.99,
                         Brand = "Apple",
                         Model = "iPhone 15",
-                        OperatingSystem = PhoneOperatingSystem.iOS,
+                        OperatingSystem = PhoneOperatingSystem.Ios,
                         Memory = 256
                     },
                     new Smartphone
@@ -27,7 +27,7 @@ namespace Services
                         Price = 1225.99,
                         Brand = "Apple",
                         Model = "iPhone 14",
-                        OperatingSystem = PhoneOperatingSystem.iOS,
+                        OperatingSystem = PhoneOperatingSystem.Ios,
                         Memory = 128
                     },
                     new Smartphone
@@ -37,7 +37,7 @@ namespace Services
                         Price = 1100.00,
                         Brand = "Apple",
                         Model = "iPhone 15",
-                        OperatingSystem = PhoneOperatingSystem.iOS,
+                        OperatingSystem = PhoneOperatingSystem.Ios,
                         Memory = 128
                     },
                     new Computer
@@ -47,7 +47,7 @@ namespace Services
                         Price = 1822.00,
                         Brand = "Apple",
                         Model = "MacBook Air",
-                        OperatingSystem = ComputerOperatingSystem.macOs
+                        OperatingSystem = ComputerOperatingSystem.MacOs
                     },
                     new Computer
                     {
@@ -56,7 +56,7 @@ namespace Services
                         Price = 2434.99,
                         Brand = "Apple",
                         Model = "MacBook Pro",
-                        OperatingSystem = ComputerOperatingSystem.macOs
+                        OperatingSystem = ComputerOperatingSystem.MacOs
                     },
                     new Computer
                     {
@@ -65,7 +65,7 @@ namespace Services
                         Price = 800.00,
                         Brand = "Lenovo",
                         Model = "Notebook",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -74,7 +74,7 @@ namespace Services
                         Price = 1200.99,
                         Brand = "Asus",
                         Model = "Notebook",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -83,7 +83,7 @@ namespace Services
                         Price = 1425.99,
                         Brand = "Lenovo",
                         Model = "PRObook",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -92,7 +92,7 @@ namespace Services
                         Price = 1225.99,
                         Brand = "Xiomi",
                         Model = "MiBook Lite",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -101,7 +101,7 @@ namespace Services
                         Price = 1100.00,
                         Brand = "Xiomi",
                         Model = "MiBook 1",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -110,7 +110,7 @@ namespace Services
                         Price = 1822.00,
                         Brand = "Xiomi",
                         Model = "MiBook 2",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -119,7 +119,7 @@ namespace Services
                         Price = 2434.99,
                         Brand = "Xiomi",
                         Model = "MiBook 3",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -128,7 +128,7 @@ namespace Services
                         Price = 1425.99,
                         Brand = "Lenovo",
                         Model = "Limited Edition 3000",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -137,7 +137,7 @@ namespace Services
                         Price = 1225.99,
                         Brand = "Lenovo",
                         Model = "Limited Edition 3001",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -146,7 +146,7 @@ namespace Services
                         Price = 1500.00,
                         Brand = "Lenovo",
                         Model = "Limited Edition 3002",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -155,7 +155,7 @@ namespace Services
                         Price = 1822.00,
                         Brand = "Lenovo",
                         Model = "Limited Edition 3020",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -164,7 +164,7 @@ namespace Services
                         Price = 2434.99,
                         Brand = "Lenovo",
                         Model = "Limited Edition 30800",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -173,7 +173,7 @@ namespace Services
                         Price = 1425.99,
                         Brand = "Asus",
                         Model = "Notebook 2",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -182,7 +182,7 @@ namespace Services
                         Price = 1225.99,
                         Brand = "Asus",
                         Model = "Notebook 3",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     },
                     new Computer
                     {
@@ -191,7 +191,7 @@ namespace Services
                         Price = 1100.00,
                         Brand = "Asus",
                         Model = "Notebook 4",
-                        OperatingSystem = ComputerOperatingSystem.windows
+                        OperatingSystem = ComputerOperatingSystem.Windows
                     }
             };
          }

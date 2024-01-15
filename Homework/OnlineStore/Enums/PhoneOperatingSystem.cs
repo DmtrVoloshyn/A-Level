@@ -2,9 +2,9 @@
 {
 	public enum PhoneOperatingSystem
 	{
-		iOS,
-		android,
-		unspecified
+		Ios,
+		Android,
+		Unspecified
 	}
 }
 

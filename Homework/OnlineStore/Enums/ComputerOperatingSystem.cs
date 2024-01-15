@@ -2,9 +2,9 @@
 {
 	public enum ComputerOperatingSystem
 	{
-		windows,
-		macOs,
-		unspecified
+		Windows,
+		MacOs,
+		Unspecified
 	}
 }
 
