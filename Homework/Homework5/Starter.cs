@@ -17,7 +17,7 @@
 				};
 			}
 
-            Logger.Instance.WriteLogsWithConfirmation();
+            Logger.Instance.SaveLogWithConfirmation();
         }
     }
 }
