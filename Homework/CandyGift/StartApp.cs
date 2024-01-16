@@ -1,5 +1,4 @@
-﻿using System;
-namespace CandyGift
+﻿namespace CandyGift
 {
 	public class StartApp
 	{
