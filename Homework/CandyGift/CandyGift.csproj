@@ -13,6 +13,12 @@
     <None Remove="Services\Abstractions\" />
     <None Remove="Repositories\" />
     <None Remove="Entities\" />
+    <None Remove="Models\Cookies\" />
+    <None Remove="Models\Candies\" />
+    <None Remove="Enums\" />
+    <None Remove="Entities\Cookies\" />
+    <None Remove="Entities\Candies\" />
+    <None Remove="Сonverters\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -20,5 +26,15 @@
     <Folder Include="Services\Abstractions\" />
     <Folder Include="Repositories\" />
     <Folder Include="Entities\" />
+    <Folder Include="Models\Cookies\" />
+    <Folder Include="Models\Candies\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Entities\Cookies\" />
+    <Folder Include="Entities\Candies\" />
+    <Folder Include="Сonverters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
   </ItemGroup>
 </Project>
