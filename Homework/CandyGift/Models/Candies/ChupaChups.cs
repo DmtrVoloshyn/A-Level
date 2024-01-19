@@ -2,7 +2,7 @@
 {
     public class ChupaChups : CaramelCandy
     {
-        public ChupaChups() : base(10, "ChupaLTD", false, true, false, false) { }
+        public ChupaChups() : base(15, "ChupaLTD", false, true, false, false, "ChupaChups") { }
     }
 }
 

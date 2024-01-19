@@ -14,7 +14,8 @@ namespace CandyGift.Сonverters
 		{
 			return new KokoshaEntity
 			{
-				Id = Guid.NewGuid(),
+                Name = kokosha.Name,
+                Id = Guid.NewGuid(),
 				Weight = kokosha.Weight,
 				OatmealAmount = kokosha.OatmealAmount,
 				Manufacturer = kokosha.Manufacturer,
@@ -28,6 +29,7 @@ namespace CandyGift.Сonverters
         {
             return new KontikEntity
             {
+                Name = kontik.Name,
                 Id = Guid.NewGuid(),
                 Weight = kontik.Weight,
                 Manufacturer = kontik.Manufacturer,
@@ -42,6 +44,7 @@ namespace CandyGift.Сonverters
         {
             return new ChupaChupsEntity
             {
+                Name = chupaChups.Name,
                 Id = Guid.NewGuid(),
                 Weight = chupaChups.Weight,
                 Manufacturer = chupaChups.Manufacturer,
@@ -56,6 +59,7 @@ namespace CandyGift.Сonverters
         {
             return new MilkyWayEntity
             {
+                Name = milkyWay.Name,
                 Id = Guid.NewGuid(),
                 Weight = milkyWay.Weight,
                 Manufacturer = milkyWay.Manufacturer,
@@ -70,6 +74,7 @@ namespace CandyGift.Сonverters
         {
             return new MilkyWay
             {
+                Name = milkyWayEntity.Name,
                 Weight = milkyWayEntity.Weight,
                 Manufacturer = milkyWayEntity.Manufacturer,
                 IsFruitTaste = milkyWayEntity.IsFruitTaste,
@@ -83,6 +88,7 @@ namespace CandyGift.Сonverters
         {
             return new ChupaChups
             {
+                Name = chupaChupsEntity.Name,
                 Weight = chupaChupsEntity.Weight,
                 Manufacturer = chupaChupsEntity.Manufacturer,
                 IsFruitTaste = chupaChupsEntity.IsFruitTaste,
@@ -96,6 +102,7 @@ namespace CandyGift.Сonverters
         {
             return new Kontik
             {
+                Name = kontikEntity.Name,
                 Weight = kontikEntity.Weight,
                 Manufacturer = kontikEntity.Manufacturer,
                 HasChocolateChips = kontikEntity.HasChocolateChips,
@@ -109,6 +116,7 @@ namespace CandyGift.Сonverters
         {
             return new Kokosha
             {
+                Name = kokoshaEntity.Name,
                 Weight = kokoshaEntity.Weight,
                 OatmealAmount = kokoshaEntity.OatmealAmount,
                 Manufacturer = kokoshaEntity.Manufacturer,

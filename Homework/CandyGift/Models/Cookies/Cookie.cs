@@ -3,7 +3,7 @@ namespace CandyGift.Models.Cookies
 {
     public abstract class Cookie : Sweet
     {
-        protected Cookie(int weight, string manufacturer, bool hasChocolateChips, bool isVegan) : base(weight, manufacturer)
+        protected Cookie(int weight, string manufacturer, string name, bool hasChocolateChips, bool isVegan) : base(weight, manufacturer, name)
         {
             HasChocolateChips = hasChocolateChips;
             IsVegan = isVegan;

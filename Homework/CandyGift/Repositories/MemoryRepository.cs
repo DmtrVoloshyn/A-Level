@@ -16,4 +16,3 @@ namespace CandyGift.Repositories
         public abstract T[] GetAll();
     }
 }
-

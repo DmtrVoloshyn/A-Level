@@ -3,8 +3,8 @@
     public abstract class Candy : Sweet
     {
         protected Candy(int weight, string manufacturer, bool isHandMade,
-            bool isFruitTaste, bool isWithFilling)
-            : base(weight, manufacturer)
+            bool isFruitTaste, bool isWithFilling, string name)
+            : base(weight, manufacturer, name)
         {
             IsHandMade = isHandMade;
             IsFruitTaste = isFruitTaste;
