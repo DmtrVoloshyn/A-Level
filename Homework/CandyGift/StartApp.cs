@@ -15,8 +15,6 @@ namespace CandyGift
         {
             _sweetGiftProcessorService.Run();
         }
-
-		
     }
 }
 

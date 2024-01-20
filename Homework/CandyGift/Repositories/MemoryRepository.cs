@@ -8,7 +8,7 @@ namespace CandyGift.Repositories
 
         protected MemoryRepository()
         {
-            Items = new List<T>(); 
+            Items = new List<T>();
         }
 
         public abstract void Add(T entity);

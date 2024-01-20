@@ -21,10 +21,7 @@ namespace CandyGift.Repositories
             throw new Exception("Sweet was not found");
         }
 
-        public override SweetEntity[] GetAll()
-        {
-            return Items.ToArray();
-        }
+        public override SweetEntity[] GetAll() => Items.ToArray();
     }
 }
 

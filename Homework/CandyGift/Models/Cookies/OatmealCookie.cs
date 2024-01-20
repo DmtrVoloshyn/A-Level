@@ -1,5 +1,4 @@
-﻿using System;
-namespace CandyGift.Models.Cookies
+﻿namespace CandyGift.Models.Cookies
 {
     public abstract class OatmealCookie : Cookie
     {

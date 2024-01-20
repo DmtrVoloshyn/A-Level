@@ -6,7 +6,7 @@ namespace CandyGift.Repositories
 	{
 		public void Add(T entity);
 		public T Get(Guid id);
-		public T[] GetAll();
+        public T[] GetAll();
     }
 }
 
