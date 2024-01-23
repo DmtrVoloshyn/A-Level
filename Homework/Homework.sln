@@ -4,11 +4,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 25.0.1706.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCart", "OnlineStore\SimpleCart.csproj", "{B5505A28-CBA3-4A1B-88DE-13986F71C3F5}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework", "Homework\Homework.csproj", "{F91DA89F-4B02-486C-91BA-C3266515191F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework4", "Homework4\Homework4.csproj", "{AAC090ED-6788-49AE-8275-CEC12CFAE6EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework5", "Homework5\Homework5.csproj", "{68AE2C06-C5F3-43F6-82F7-A7EDB47E5CC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salad", "Salad\Salad.csproj", "{1615B269-B0B9-47C0-8099-E9B552C50C3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +33,10 @@ Global
 		{68AE2C06-C5F3-43F6-82F7-A7EDB47E5CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68AE2C06-C5F3-43F6-82F7-A7EDB47E5CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68AE2C06-C5F3-43F6-82F7-A7EDB47E5CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1615B269-B0B9-47C0-8099-E9B552C50C3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1615B269-B0B9-47C0-8099-E9B552C50C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1615B269-B0B9-47C0-8099-E9B552C50C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1615B269-B0B9-47C0-8099-E9B552C50C3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
