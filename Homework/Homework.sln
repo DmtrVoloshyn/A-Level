@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1706.7
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyGift", "CandyGift\CandyGift.csproj", "{BBBA15FC-1EC8-42E5-98FE-6AD12FAD54BF}"
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCart", "OnlineStore\SimpleCart.csproj", "{B5505A28-CBA3-4A1B-88DE-13986F71C3F5}"
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework", "Homework\Homework.csproj", "{F91DA89F-4B02-486C-91BA-C3266515191F}"
 EndProject
@@ -16,6 +17,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBBA15FC-1EC8-42E5-98FE-6AD12FAD54BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBBA15FC-1EC8-42E5-98FE-6AD12FAD54BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBBA15FC-1EC8-42E5-98FE-6AD12FAD54BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBBA15FC-1EC8-42E5-98FE-6AD12FAD54BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B5505A28-CBA3-4A1B-88DE-13986F71C3F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B5505A28-CBA3-4A1B-88DE-13986F71C3F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5505A28-CBA3-4A1B-88DE-13986F71C3F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
