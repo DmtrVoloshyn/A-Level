@@ -5,7 +5,7 @@ using Logger.Services.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 
-const string filePath = "/Users/dmytro.voloshyn/Projects/A-Level/Homework/Logger";
+const string logFilePath = "/Users/dmytro.voloshyn/Projects/A-Level/Homework/Logger/Logs";
 
 void ConfigureServices(ServiceCollection serviceCollection, IConfiguration configuration, string filePath)
 {
@@ -18,12 +18,12 @@ void ConfigureServices(ServiceCollection serviceCollection, IConfiguration confi
 }
 
 IConfiguration configuration = new ConfigurationBuilder()
-    .SetBasePath(filePath)
+    .SetBasePath("/Users/dmytro.voloshyn/Projects/A-Level/Homework/Logger")
     .AddJsonFile("config.json")
     .Build();
 
 var serviceCollection = new ServiceCollection();
-ConfigureServices(serviceCollection, configuration, filePath);
+ConfigureServices(serviceCollection, configuration, logFilePath);
 var provider = serviceCollection.BuildServiceProvider();
 
 var app = provider.GetService<App>();

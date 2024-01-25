@@ -1,38 +1,43 @@
-﻿namespace Logger.Services
+﻿using Logger.Services;
+
+public class FileService : IFileService
 {
-    public class FileService : IFileService
+    private readonly string _directoryPath;
+    private readonly string _fileName;
+
+    public FileService(string directoryPath)
     {
-        private readonly string _directoryPath;
+        _directoryPath = directoryPath;
 
-        public FileService(string directoryPath)
+        _fileName = $"{DateTime.Now:MM.dd.yyyy HH.mm.ss.fff tt}.txt";
+
+        string filePath = Path.Combine(_directoryPath, _fileName);
+
+        if (!Directory.Exists(_directoryPath))
         {
-            _directoryPath = directoryPath;
-
-            if (!Directory.Exists(_directoryPath))
-            {
-                Directory.CreateDirectory(_directoryPath);
-            }
+            Directory.CreateDirectory(_directoryPath);
         }
 
-        public void WriteToFile(string data)
+        if (!File.Exists(filePath))
         {
-            var files = Directory.GetFiles(_directoryPath).ToList();
+            File.Create(filePath).Close();
+        }
 
-            if (files.Count > 3)
-            {
-                string oldestFile = files.OrderBy(f => File.GetCreationTime(f)).First();
-                File.Delete(oldestFile);
-            }
+        var files = Directory.GetFiles(_directoryPath);
+        if (files.Length > 3)
+        {
+            var orderedFiles = files.OrderBy(f => new FileInfo(f).CreationTime).ToArray();
+            File.Delete(orderedFiles[0]);
+        }
+    }
 
-            string fileName = $"{DateTime.Now:MM/dd/yyyy HH:mm:ss.fff tt}.txt";
+    public void WriteToFile(string data)
+    {
+        string filePath = Path.Combine(_directoryPath, _fileName);
 
-            string filePath = Path.Combine(_directoryPath, fileName);
-
-            using (FileStream fileStream = File.Create(filePath))
-            {
-                using StreamWriter writer = new StreamWriter(fileStream);
-                writer.WriteLine(data);
-            }
+        using (StreamWriter streamWriter = new(filePath, true))
+        {
+            streamWriter.WriteLine(data);
         }
     }
 }
