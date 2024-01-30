@@ -40,7 +40,8 @@ namespace ElectricalAppliances.Repositories
                 Brand = "Samsung",
                 EnergyConsumption = 1200,
                 IsPortable = false,
-                IsConstantEnergyConsumption = false
+                IsConstantEnergyConsumption = false,
+                DeviceName = "Dishwasher Samsung"
             });
             Items.Add(new FridgeEntity
             {
@@ -48,7 +49,8 @@ namespace ElectricalAppliances.Repositories
                 Brand = "Samsung",
                 EnergyConsumption = 600,
                 IsPortable = false,
-                IsConstantEnergyConsumption = true
+                IsConstantEnergyConsumption = true,
+                DeviceName = "Fridge Samsung"
             });
             Items.Add(new VacuumEntity
             {
@@ -57,7 +59,8 @@ namespace ElectricalAppliances.Repositories
                 EnergyConsumption = 200,
                 IsPortable = true,
                 HasRemoteControl = true,
-                IsSmart = true
+                IsSmart = true,
+                DeviceName = "Smart Vacuum Xiaomi"
             });
             Items.Add(new AirConditionerEntity
             {
@@ -66,7 +69,8 @@ namespace ElectricalAppliances.Repositories
                 EnergyConsumption = 700,
                 IsPortable = false,
                 HasRemoteControl = true,
-                IsSmart = true
+                IsSmart = true,
+                DeviceName = "Air conditioner TOSOT"
             });
         }
     }

@@ -2,9 +2,9 @@
 {
     public class ElectricalOutlet
     {
-        private List<ElectronicDevice> ConnectedDevices { get; } = new List<ElectronicDevice>();
-
         public bool IsPluggedIn { get; private set; }
+        public double PowerConsumption { get; private set; }
+
 
         public void PlugInDevices(ElectronicDevice device)
         {
@@ -12,22 +12,13 @@
             {
                 IsPluggedIn = true;
                 Console.WriteLine($"Device {device.Brand} {device.Model} plugged in.");
-                ConnectedDevices.Add(device);
+                PowerConsumption = device.EnergyConsumption;
             }
         }
 
-
-        public double CalculatePowerConsumption()
+        public double GetPowerConsumption()
         {
-            double totalPowerConsumption = 0;
-
-            foreach (var device in ConnectedDevices)
-            {
-                totalPowerConsumption += device.EnergyConsumption;
-            }
-
-            Console.WriteLine($"Total power consumption: {totalPowerConsumption} watts");
-            return totalPowerConsumption;
+            return IsPluggedIn ? PowerConsumption : 0.0;
         }
     }
 }
