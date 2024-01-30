@@ -72,7 +72,7 @@ namespace ElectricalAppliances.Services
             }
             else
             {
-                Console.Write("You did not select any types to auth");
+                Console.Write("You did not select any types...");
                 return;
             }
         }

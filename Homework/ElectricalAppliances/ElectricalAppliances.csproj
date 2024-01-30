@@ -26,7 +26,6 @@
     <None Remove="Enums\" />
     <None Remove="Options\" />
     <None Remove="Mappings\" />
-    <None Remove="Logs\" />
     <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
@@ -39,12 +38,6 @@
     <Folder Include="Enums\" />
     <Folder Include="Options\" />
     <Folder Include="Mappings\" />
-    <Folder Include="Logs\" />
     <Folder Include="Extensions\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Logs\log.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

@@ -18,7 +18,22 @@ namespace ElectricalAppliances.Services
         {
             var log = $"{DateTime.UtcNow} {logType} {massage}";
             Console.WriteLine(log);
-            Debug.WriteLine($"write log to {_loggerOptions.Path}");
+            SaveLog(log);
+        }
+
+        private void SaveLog(string log)
+        {
+            try
+            {
+                using (StreamWriter streamWriter = File.AppendText(_loggerOptions.Path))
+                {
+                    streamWriter.Write(log);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to log: {ex.Message}");
+            }
         }
     }
 }
