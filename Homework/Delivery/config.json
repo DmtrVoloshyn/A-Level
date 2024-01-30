@@ -1,9 +1,0 @@
-﻿{
-    "Log": {
-        "Path": "log.txt",
-        "Dev": {
-            "Lifetime": 1000,
-            "Path": "log1.txt"
-        }
-    }
-}
