@@ -1,7 +1,6 @@
 ﻿using ElectricalAppliances.Enums;
 using ElectricalAppliances.Options;
 using Microsoft.Extensions.Options;
-using System.Diagnostics;
 
 namespace ElectricalAppliances.Services
 {

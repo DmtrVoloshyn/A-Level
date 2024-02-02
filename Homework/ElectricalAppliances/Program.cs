@@ -22,7 +22,6 @@ void ConfigureServices(ServiceCollection serviceCollection, IConfiguration confi
 }
 
 IConfiguration configuration = new ConfigurationBuilder()
-    .SetBasePath("/Users/dmytro.voloshyn/Projects/A-Level/Homework/ElectricalAppliances")
     .AddJsonFile("config.json")
     .Build();
 
