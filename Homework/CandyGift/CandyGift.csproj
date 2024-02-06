@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Models\" />
+    <None Remove="Services\" />
+    <None Remove="Services\Abstractions\" />
+    <None Remove="Repositories\" />
+    <None Remove="Entities\" />
+    <None Remove="Models\Cookies\" />
+    <None Remove="Models\Candies\" />
+    <None Remove="Enums\" />
+    <None Remove="Entities\Cookies\" />
+    <None Remove="Entities\Candies\" />
+    <None Remove="Сonverters\" />
+    <None Remove="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\Abstractions\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Models\Cookies\" />
+    <Folder Include="Models\Candies\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Entities\Cookies\" />
+    <Folder Include="Entities\Candies\" />
+    <Folder Include="Сonverters\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
+  </ItemGroup>
+</Project>
