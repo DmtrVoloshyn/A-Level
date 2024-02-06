@@ -11,13 +11,13 @@ namespace Collection
 		public Startup(IOrderService orderService)
 		{
 			_orderService = orderService;
-        }
+		}
 
 		public void Start()
 		{
 			AddOrder();
 			GetOrders();
-        }
+		}
 
 		private void AddOrder()
 		{
@@ -29,7 +29,7 @@ namespace Collection
 				CreatedAt = DateTime.UtcNow
 			};
 
-			if(input?.ToLower().Trim().Equals("y") ?? false)
+			if (input?.ToLower().Trim().Equals("y") ?? false)
 			{
 				order.IsEmergensy = true;
 			}

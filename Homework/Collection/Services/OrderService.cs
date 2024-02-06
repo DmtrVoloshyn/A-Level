@@ -8,14 +8,14 @@ using Collection.Services.Abstractions;
 
 namespace Collection.Services
 {
-	public class OrderService : IOrderService
-	{
+    public class OrderService : IOrderService
+    {
         private readonly IOrderRepository _orderRepository;
 
-		public OrderService(IOrderRepository orderRepository)
-		{
+        public OrderService(IOrderRepository orderRepository)
+        {
             _orderRepository = orderRepository;
-		}
+        }
 
         public Guid AddOrder(Order order)
         {

@@ -4,12 +4,12 @@ using Collection.Models;
 namespace Collection.Extensions
 {
 	public static class OrderExtension
-    {
+	{
 		public static List<Order> SortByCreatedAt(this List<Order> orders)
 		{
 			int count = orders.Count;
 
-			for (int gap = count/2; gap > 0; gap/=2)
+			for (int gap = count / 2; gap > 0; gap /= 2)
 			{
 				for (int i = gap; i < count; i++)
 				{
@@ -27,7 +27,7 @@ namespace Collection.Extensions
 			}
 
 			return orders;
-		} 
+		}
 	}
 }
 

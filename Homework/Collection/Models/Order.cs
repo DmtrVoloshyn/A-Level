@@ -1,9 +1,9 @@
 ﻿using System;
 namespace Collection.Models
 {
-	public class Order : IComparable<Order>
+    public class Order : IComparable<Order>
     {
-		public Guid Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool IsEmergensy { get; set; }
 
