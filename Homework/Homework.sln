@@ -4,18 +4,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 25.0.1706.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyGift", "CandyGift\CandyGift.csproj", "{BBBA15FC-1EC8-42E5-98FE-6AD12FAD54BF}"
-
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCart", "OnlineStore\SimpleCart.csproj", "{B5505A28-CBA3-4A1B-88DE-13986F71C3F5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework4", "Homework4\Homework4.csproj", "{AAC090ED-6788-49AE-8275-CEC12CFAE6EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework5", "Homework5\Homework5.csproj", "{68AE2C06-C5F3-43F6-82F7-A7EDB47E5CC4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "Logger\Logger.csproj", "{BDAEA08C-1733-4038-8280-C478EA07969E}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricalAppliances", "ElectricalAppliances\ElectricalAppliances.csproj", "{73F0E15D-1E21-4115-B37A-4D50ABDBF66E}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salad", "Salad\Salad.csproj", "{1615B269-B0B9-47C0-8099-E9B552C50C3C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCart", "OnlineStore\SimpleCart.csproj", "{ADBD5B3F-9906-4DEC-9FB8-D172AD486740}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricalAppliances", "ElectricalAppliances\ElectricalAppliances.csproj", "{DE6D50C7-4A40-4FDA-84E4-279BF5F92743}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework", "Homework\Homework.csproj", "{77050610-11A5-4A24-BF2B-7DE637E0515E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salad", "Salad\Salad.csproj", "{0035064A-B104-4906-A6AB-A6806A63E13C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,18 @@ Global
 		{1615B269-B0B9-47C0-8099-E9B552C50C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1615B269-B0B9-47C0-8099-E9B552C50C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1615B269-B0B9-47C0-8099-E9B552C50C3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE6D50C7-4A40-4FDA-84E4-279BF5F92743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE6D50C7-4A40-4FDA-84E4-279BF5F92743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE6D50C7-4A40-4FDA-84E4-279BF5F92743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE6D50C7-4A40-4FDA-84E4-279BF5F92743}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77050610-11A5-4A24-BF2B-7DE637E0515E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77050610-11A5-4A24-BF2B-7DE637E0515E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77050610-11A5-4A24-BF2B-7DE637E0515E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77050610-11A5-4A24-BF2B-7DE637E0515E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0035064A-B104-4906-A6AB-A6806A63E13C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0035064A-B104-4906-A6AB-A6806A63E13C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0035064A-B104-4906-A6AB-A6806A63E13C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0035064A-B104-4906-A6AB-A6806A63E13C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
