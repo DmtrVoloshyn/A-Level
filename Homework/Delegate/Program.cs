@@ -1,7 +1,4 @@
-﻿using static Delegate.FirstClass;
-using static Delegate.SecondClass;
-
-namespace Delegate;
+﻿namespace Delegate;
 
 class Program
 {
@@ -20,10 +17,27 @@ class Program
 
         var resultDelegate2 = secondClass2.Calc(5, 5, firstClass.Multiply);
         showDelegate(resultDelegate(6));
+
+        //implementation event homework
+        CalculateEventHandler handler = new();
+        firstClass.CalculateEvent += handler.HandleCalculate;
+
+        firstClass.CalculateSum();
     }
 
     public static void Show(bool result)
     {
         Console.WriteLine(result);
+    }
+
+    public static void TryCatchWrapper()
+    {
+        try
+        {
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Handled error: {ex.Message}");
+        }
     }
 }
