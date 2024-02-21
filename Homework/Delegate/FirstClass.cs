@@ -4,20 +4,16 @@
 
     public class FirstClass
 	{
-        public event Action<object, EventArgs> CalculateEvent;
+        public event EventHandler<int>? CalculateEvent;
 
-        public void CalculateSum()
+        public void CalculateSum(int num, int num2)
         {
-            OnCalculate(EventArgs.Empty);
+            var sumResult = Sum(num, num2);
+            CalculateEvent?.Invoke(this, sumResult);
         }
 
-        protected virtual void OnCalculate(EventArgs e)
-        {
-            CalculateEvent?.Invoke(this, e);
-        }
+        public static int Multiply(int number, int number2) => number * number2;
 
-        public int Multiply(int number, int number2) => number * number2;
-
-        public int Sum(int number, int number2) => number + number2;
+        public static int Sum(int number, int number2) => number + number2;
 	}
 }
