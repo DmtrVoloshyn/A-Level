@@ -1,4 +1,3 @@
-using System.Threading.Channels;
 using MessageBox.Enums;
 
 namespace MessageBox;
@@ -22,6 +21,6 @@ public class MessageBox
         var enumValues = Enum.GetValues(typeof(State));
         var randomIndex = random.Next(enumValues.Length);
         
-        return (State)enumValues.GetValue(randomIndex);;
+        return (State)enumValues.GetValue(randomIndex);
     }
 }
