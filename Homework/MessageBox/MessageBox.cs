@@ -18,9 +18,8 @@ public class MessageBox
     private static State GetRandomState()
     {
         var random = new Random();
-        var enumValues = Enum.GetValues(typeof(State));
-        var randomIndex = random.Next(enumValues.Length);
+        var randomIndex = random.Next(0, 2);
         
-        return (State)enumValues.GetValue(randomIndex);
+        return (State)randomIndex;
     }
 }
