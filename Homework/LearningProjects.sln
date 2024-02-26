@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salad", "Salad\Salad.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contacts", "Contacts\Contacts.csproj", "{8AA04C18-ADB6-44C7-A183-F3B894918779}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerAsync", "LoggerAsync\LoggerAsync.csproj", "{B1D990BA-91F3-4770-A198-3B30326FD548}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{8AA04C18-ADB6-44C7-A183-F3B894918779}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AA04C18-ADB6-44C7-A183-F3B894918779}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AA04C18-ADB6-44C7-A183-F3B894918779}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D990BA-91F3-4770-A198-3B30326FD548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D990BA-91F3-4770-A198-3B30326FD548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D990BA-91F3-4770-A198-3B30326FD548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D990BA-91F3-4770-A198-3B30326FD548}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
