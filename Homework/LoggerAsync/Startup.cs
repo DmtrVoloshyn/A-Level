@@ -26,6 +26,8 @@ public class Startup
         try
         {
             await Task.WhenAll(FirstMethod(), SecondMethod());
+
+            Console.ReadLine();
         }
         catch (Exception e)
         {
@@ -38,7 +40,7 @@ public class Startup
         await Parallel.ForAsync(0, IterationCount, async (i, ct) =>
         {
             _loggerService.Log(LogType.Info, "Custom info message");
-            await Task.Delay(TimeSpan.FromMilliseconds(1));
+            await Task.Delay(TimeSpan.FromMilliseconds(1), ct);
         });
     }
     
@@ -47,7 +49,7 @@ public class Startup
         await Parallel.ForAsync(0, IterationCount, async (i, ct) =>
         {
             _loggerService.Log(LogType.Warning, "Custom warning message");
-            await Task.Delay(TimeSpan.FromMilliseconds(1));
+            await Task.Delay(TimeSpan.FromMilliseconds(1), ct);
         });
     }
 }

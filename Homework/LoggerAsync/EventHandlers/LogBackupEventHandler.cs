@@ -5,18 +5,16 @@ namespace LoggerAsync.EventHandlers;
 public class LogBackupEventHandler
 {
     private readonly IFileService _fileService;
+    private int _backupLength;
     
     public LogBackupEventHandler(IFileService fileService)
     {
         _fileService = fileService;
     }
     
-    public void HandleBackup(object? sender, EventArgs e)
+    public void HandleBackup(object? sender, int backupLength)
     {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("This text is in green!");
-        Console.ResetColor();
-
-        _fileService.CreateBackup();
+        _backupLength += backupLength; 
+        _fileService.CreateBackup(_backupLength);
     }
 }

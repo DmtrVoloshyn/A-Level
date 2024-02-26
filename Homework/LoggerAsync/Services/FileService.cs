@@ -67,20 +67,36 @@ namespace LoggerAsync.Services
             }
         }
 
-        public void CreateBackup()
+        public void CreateBackup(int backupLength)
         {
+            var backupFileName = $"{DateTime.UtcNow:MM.dd.yyyy HH.mm.ss.fff tt}_backup.txt";
+            var backupFilePath = Path.Combine(_backupDirectoryPath, backupFileName);
+            
             try
             {
-                string backupFileName = $"{DateTime.UtcNow:MM.dd.yyyy HH.mm.ss.fff tt}_backup.txt";
-                string backupFilePath = Path.Combine(_backupDirectoryPath, backupFileName);
+                using (StreamReader reader = new StreamReader(_filePath))
+                {
+                    var allLines = GetLines(backupLength, reader);
+                }
 
                 File.Copy(_filePath, backupFilePath);
-
+                
                 Console.WriteLine($"Backup created at: {backupFilePath}");
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Error creating backup: {e.Message}");
+            }
+        }
+
+        private static IEnumerable<string> GetLines(int backupLength, StreamReader reader)
+        {
+            for (int i = 0; i < backupLength; i++)
+            {
+                var item = reader.ReadLine();
+
+                if (item != null)
+                    yield return item;
             }
         }
     }

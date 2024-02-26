@@ -7,7 +7,7 @@ namespace LoggerAsync.Services;
 
 public class LoggerService : ILoggerService
 {
-    public event EventHandler? BackupSignal; 
+    public event EventHandler<int>? BackupSignal; 
     
     private readonly LoggerOptions _loggerOptions;
     private readonly IFileService _fileService;
@@ -30,9 +30,12 @@ public class LoggerService : ILoggerService
         lock (_lockObject)
         {
             _logCounter++;
-        
+
             if (_logCounter % _loggerOptions.BackupSize == 0)
-                BackupSignal?.Invoke(this, EventArgs.Empty);
+            {
+                BackupSignal?.Invoke(this, _logCounter);
+                _logCounter = 0;
+            }
         }
     }
 }
