@@ -6,39 +6,39 @@ namespace LoggerAsync.Services
 {
     public class FileService : IFileService
     {
-        private readonly SemaphoreSlim _semaphoreSlim;
-        private readonly string? _backupDirectoryPath;
-        private readonly string? _logDirectoryPath;
-        private readonly string _fileName;
-        private readonly string _filePath;
-
+        private readonly string _backupDirectoryPath;
+        private readonly string _logFilePath;
+        
         public FileService(IOptions<LoggerOptions> loggerOptions)
         {
-            _logDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, loggerOptions.Value.LogDirectoryName);
-            _backupDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
-                loggerOptions.Value.BackupsDirectoryName);
+            var loggerOptions1 = loggerOptions.Value;
+        
+            var logFileName = loggerOptions1.Logs.LogFileName;
+            var logDirectoryPath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory, 
+                loggerOptions1.Logs.LogDirectoryName);
             
-            _fileName = "log.txt";
-            _filePath = Path.Combine(_logDirectoryPath, _fileName);
+            _backupDirectoryPath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                loggerOptions.Value.Backup.BackupsDirectoryName);
+            _logFilePath = Path.Combine(logDirectoryPath, logFileName);
             
-            InitializeDirectoryAsync().Wait();
-            
-            _semaphoreSlim = new SemaphoreSlim(5);
+            InitializeDirectoryAsync(logDirectoryPath).Wait();
         }
 
-        private async Task InitializeDirectoryAsync()
+        private async Task InitializeDirectoryAsync(string path)
         {
-            if (!Directory.Exists(_logDirectoryPath))
+            if (!Directory.Exists(path))
             {
-                await CreateDirectoryAsync();
+                await CreateDirectoryAsync(path);
             }
         }
 
-        private async Task CreateDirectoryAsync()
+        private static async Task CreateDirectoryAsync(string path)
         {
             try
             {
-                await Task.Run(() => Directory.CreateDirectory(_logDirectoryPath));
+                await Task.Run(() => Directory.CreateDirectory(path));
             }
             catch (Exception ex)
             {
@@ -46,42 +46,48 @@ namespace LoggerAsync.Services
             }
         }
 
-        public async Task WriteToFile(string data)
+        public void WriteToFile(string data, string path)
         {
-            await _semaphoreSlim.WaitAsync();
-            
             try
             {
-                if (!File.Exists(_filePath))
-                {
-                    File.Create(_filePath).Close();
-                }
-
-                await using var writer = new StreamWriter(_filePath, true);
-                await writer.WriteLineAsync(data);
-                await writer.FlushAsync();
+                using var writer = new StreamWriter(path, true);
+                writer.WriteLine(data);
+                
             }
-            finally
+            catch (Exception e)
             {
-                _semaphoreSlim.Release();
+                Console.WriteLine(e);
+            }
+        }
+
+        public async Task WriteToFileAsync(string data, string path)
+        {
+            CreateFile(path);
+            
+            await using var writer = new StreamWriter(path, true); 
+            await writer.WriteLineAsync(data); 
+            await writer.FlushAsync();
+        }
+
+        private static void CreateFile(string path)
+        {
+            if (!File.Exists(path))
+            {
+                File.Create(path).Close();
             }
         }
 
         public void CreateBackup(int backupLength)
         {
-            var backupFileName = $"{DateTime.UtcNow:MM.dd.yyyy HH.mm.ss.fff tt}_backup.txt";
+            var backupFileName = $"{DateTime.UtcNow:MM.dd.yyyy HH.mm.ss.fff tt zz}_backup.txt";
             var backupFilePath = Path.Combine(_backupDirectoryPath, backupFileName);
             
             try
             {
-                using (StreamReader reader = new StreamReader(_filePath))
-                {
+                using StreamReader reader = new StreamReader(_logFilePath);
                     var allLines = GetLines(backupLength, reader);
-                }
 
-                File.Copy(_filePath, backupFilePath);
-                
-                Console.WriteLine($"Backup created at: {backupFilePath}");
+                    allLines.ToList().ForEach(line => WriteToFile(line, backupFilePath));
             }
             catch (Exception e)
             {
@@ -91,7 +97,7 @@ namespace LoggerAsync.Services
 
         private static IEnumerable<string> GetLines(int backupLength, StreamReader reader)
         {
-            for (int i = 0; i < backupLength; i++)
+            for (var i = 0; i < backupLength; i++)
             {
                 var item = reader.ReadLine();
 

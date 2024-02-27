@@ -2,7 +2,7 @@ using LoggerAsync.Services.Abstractions;
 
 namespace LoggerAsync.EventHandlers;
 
-public class LogBackupEventHandler
+public class LogBackupEventHandler : EventHandlerBase<int>
 {
     private readonly IFileService _fileService;
     private int _backupLength;
@@ -11,8 +11,8 @@ public class LogBackupEventHandler
     {
         _fileService = fileService;
     }
-    
-    public void HandleBackup(object? sender, int backupLength)
+
+    public override void Handle(object? sender, int backupLength)
     {
         _backupLength += backupLength; 
         _fileService.CreateBackup(_backupLength);

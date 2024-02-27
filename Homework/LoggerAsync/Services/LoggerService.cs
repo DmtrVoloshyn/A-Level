@@ -7,35 +7,43 @@ namespace LoggerAsync.Services;
 
 public class LoggerService : ILoggerService
 {
-    public event EventHandler<int>? BackupSignal; 
+    public event EventHandler<int>? BackupSignal;
     
     private readonly LoggerOptions _loggerOptions;
     private readonly IFileService _fileService;
-    private readonly object _lockObject = new();
+    private readonly SemaphoreSlim _semaphoreSlim;
+    private readonly string _logFilePath;
+    
     private int _logCounter;
     
     public LoggerService(IOptions<LoggerOptions> loggerOptions, IFileService fileService)
     {
-        _loggerOptions = loggerOptions.Value;
         _fileService = fileService;
+        _loggerOptions = loggerOptions.Value;
+        _semaphoreSlim = new(1);
+        
+        var logFileName = _loggerOptions.Logs.LogFileName;
+        var logDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _loggerOptions.Logs.LogDirectoryName);
+        
+        _logFilePath = Path.Combine(logDirectoryPath, logFileName);
     }
 
-    public void Log(LogType logType, string message)
+    public async Task Log(LogType logType, string message)
     {
         var log = $"{DateTime.UtcNow} {logType} {message}";
-        Console.WriteLine(log);
 
-        _fileService.WriteToFile(log);
-
-        lock (_lockObject)
-        {
-            _logCounter++;
-
-            if (_logCounter % _loggerOptions.BackupSize == 0)
-            {
-                BackupSignal?.Invoke(this, _logCounter);
-                _logCounter = 0;
-            }
-        }
+        await _semaphoreSlim.WaitAsync();
+        
+        Console.WriteLine(log); 
+        await _fileService.WriteToFileAsync(log, _logFilePath);
+        
+        _logCounter++;
+        if (_logCounter == _loggerOptions.Backup.BackupSize) 
+        { 
+            BackupSignal?.Invoke(this, _logCounter); 
+            _logCounter = 0;
+        } 
+        
+        _semaphoreSlim.Release();
     }
 }

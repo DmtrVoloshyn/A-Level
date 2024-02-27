@@ -13,9 +13,9 @@ void ConfigureService(ServiceCollection services, IConfiguration configuration)
     
     services
         .AddSingleton<ILoggerService, LoggerService>()
-        .AddTransient<IFileService, FileService>()
-        .AddTransient<LogBackupEventHandler, LogBackupEventHandler>()
-        .AddTransient<Startup>();
+        .AddSingleton<IFileService, FileService>()
+        .AddSingleton<LogBackupEventHandler, LogBackupEventHandler>()
+        .AddSingleton<Startup>();
 }
 
 IConfiguration configuration = new ConfigurationBuilder()
@@ -27,4 +27,4 @@ ConfigureService(serviceCollection, configuration);
 var provider = serviceCollection.BuildServiceProvider();
 
 var app = provider.GetService<Startup>();
-app!.Start();
+await app!.Start();
