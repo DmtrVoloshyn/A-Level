@@ -1,27 +1,13 @@
-using LoggerAsync.Options;
+using LoggerAsync.Helpers;
 using LoggerAsync.Services.Abstractions;
-using Microsoft.Extensions.Options;
 
 namespace LoggerAsync.Services
 {
     public class FileService : IFileService
     {
-        private readonly string _backupDirectoryPath;
-        private readonly string _logFilePath;
-        
-        public FileService(IOptions<LoggerOptions> loggerOptions)
+        public FileService()
         {
-            var loggerOptions1 = loggerOptions.Value;
-        
-            var logFileName = loggerOptions1.Logs.LogFileName;
-            var logDirectoryPath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory, 
-                loggerOptions1.Logs.LogDirectoryName);
-            
-            _backupDirectoryPath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                loggerOptions.Value.Backup.BackupsDirectoryName);
-            _logFilePath = Path.Combine(logDirectoryPath, logFileName);
+            var logDirectoryPath = LoggerHelper.GetLogDirPath();
             
             InitializeDirectoryAsync(logDirectoryPath).Wait();
         }
@@ -80,11 +66,11 @@ namespace LoggerAsync.Services
         public void CreateBackup(int backupLength)
         {
             var backupFileName = $"{DateTime.UtcNow:MM.dd.yyyy HH.mm.ss.fff tt zz}_backup.txt";
-            var backupFilePath = Path.Combine(_backupDirectoryPath, backupFileName);
+            var backupFilePath = Path.Combine(LoggerHelper.GetBackupDirPath(), backupFileName);
             
             try
             {
-                using StreamReader reader = new StreamReader(_logFilePath);
+                using StreamReader reader = new StreamReader(LoggerHelper.GetLogFilePath());
                     var allLines = GetLines(backupLength, reader);
 
                     allLines.ToList().ForEach(line => WriteToFile(line, backupFilePath));

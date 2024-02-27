@@ -1,5 +1,6 @@
 ﻿using LoggerAsync;
 using LoggerAsync.EventHandlers;
+using LoggerAsync.Helpers;
 using LoggerAsync.Options;
 using LoggerAsync.Services;
 using LoggerAsync.Services.Abstractions;
@@ -8,8 +9,9 @@ using Microsoft.Extensions.Configuration;
 
 void ConfigureService(ServiceCollection services, IConfiguration configuration)
 {
-    services.AddOptions<LoggerOptions>()
-        .Bind(configuration.GetSection("Logger"));
+    services.Configure<LoggerOptions>(configuration.GetSection("Logger"));
+    
+    LoggerHelper.Configure(configuration.GetSection("Logger").Get<LoggerOptions>() ?? throw new InvalidOperationException());
     
     services
         .AddSingleton<ILoggerService, LoggerService>()
