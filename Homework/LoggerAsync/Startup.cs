@@ -6,50 +6,48 @@ namespace LoggerAsync;
 
 public class Startup
 {
-    private const int IterationCount = 25;
+    private const int IterationCount = 250;
     
     private readonly ILoggerService _loggerService;
-    private readonly LogBackupEventHandler _backupHandler;
 
     public Startup(
         ILoggerService loggerService,
         LogBackupEventHandler backupHandler)
     {
         _loggerService = loggerService;
-        _backupHandler = backupHandler;
-        
-        _loggerService.BackupSignal += _backupHandler.HandleBackup;
+        _loggerService.BackupSignal += backupHandler.Handle;
     }
     
-    public async void Start()
+    public async Task Start()
     {
         try
         {
             await Task.WhenAll(FirstMethod(), SecondMethod());
-
-            Console.ReadLine();
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
         }
+        
+        Console.ReadLine();
     }
 
     private async Task FirstMethod()
     {
-        await Parallel.ForAsync(0, IterationCount, async (i, ct) =>
-        {
-            _loggerService.Log(LogType.Info, "Custom info message");
-            await Task.Delay(TimeSpan.FromMilliseconds(1), ct);
-        });
+        await ProcessLog(LogType.Warning);
     }
-    
+
     private async Task SecondMethod()
     {
-        await Parallel.ForAsync(0, IterationCount, async (i, ct) =>
+        await ProcessLog(LogType.Info);
+    }
+    
+    private async Task ProcessLog(LogType logType)
+    {
+        await Parallel.ForAsync(default, IterationCount, async (_, ct) =>
         {
-            _loggerService.Log(LogType.Warning, "Custom warning message");
-            await Task.Delay(TimeSpan.FromMilliseconds(1), ct);
+            await _loggerService.Log(logType, "Custom message");
+            await Task.Delay(TimeSpan.Zero, ct);
         });
     }
 }
