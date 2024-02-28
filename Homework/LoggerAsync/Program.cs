@@ -17,7 +17,7 @@ void ConfigureService(ServiceCollection services, IConfiguration configuration)
         .AddSingleton<ILoggerService, LoggerService>()
         .AddSingleton<IFileService, FileService>()
         .AddSingleton<LogBackupEventHandler, LogBackupEventHandler>()
-        .AddSingleton<Startup>();
+        .AddSingleton<App>();
 }
 
 IConfiguration configuration = new ConfigurationBuilder()
@@ -28,5 +28,5 @@ var serviceCollection = new ServiceCollection();
 ConfigureService(serviceCollection, configuration);
 var provider = serviceCollection.BuildServiceProvider();
 
-var app = provider.GetService<Startup>();
+var app = provider.GetService<App>();
 await app!.Start();

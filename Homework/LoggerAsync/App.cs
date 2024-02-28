@@ -4,13 +4,13 @@ using LoggerAsync.Services.Abstractions;
 
 namespace LoggerAsync;
 
-public class Startup
+public class App
 {
     private const int IterationCount = 250;
     
     private readonly ILoggerService _loggerService;
 
-    public Startup(
+    public App(
         ILoggerService loggerService,
         LogBackupEventHandler backupHandler)
     {
