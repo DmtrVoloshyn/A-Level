@@ -8,4 +8,3 @@ namespace Collection.Entities
         public bool IsEmergensy { get; set; }
     }
 }
-
