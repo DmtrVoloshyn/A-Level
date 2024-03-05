@@ -22,24 +22,14 @@ public class App
     {
         try
         {
-            await Task.WhenAll(FirstMethod(), SecondMethod());
+            await Task.WhenAll(ProcessLog(LogType.Info), ProcessLog(LogType.Warning));
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            throw new Exception($"Error when starting app: {e}");
         }
         
         Console.ReadLine();
-    }
-
-    private async Task FirstMethod()
-    {
-        await ProcessLog(LogType.Warning);
-    }
-
-    private async Task SecondMethod()
-    {
-        await ProcessLog(LogType.Info);
     }
     
     private async Task ProcessLog(LogType logType)
