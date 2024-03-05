@@ -24,18 +24,23 @@ public class LoggerService : ILoggerService
         var log = $"{DateTime.UtcNow} {logType} {message}";
         var backupSize = LoggerHelper.GetBackupSize();
 
-        await _semaphoreSlim.WaitAsync();
+        try
+        {
+            await _semaphoreSlim.WaitAsync();
+
+            Console.WriteLine(log); 
+            await _fileService.WriteToFileAsync(log, LoggerHelper.GetLogFilePath());
         
-        Console.WriteLine(log); 
-        await _fileService.WriteToFileAsync(log, LoggerHelper.GetLogFilePath());
-        
-        _logCounter++;
-        if (_logCounter == backupSize) 
-        { 
-            BackupSignal?.Invoke(this, backupSize);
-            _logCounter = 0;
-        } 
-        
-        _semaphoreSlim.Release();
+            _logCounter++;
+            if (_logCounter == backupSize) 
+            { 
+                BackupSignal?.Invoke(this, backupSize);
+                _logCounter = 0;
+            } 
+        }
+        finally
+        {
+            _semaphoreSlim.Release();
+        }
     }
 }

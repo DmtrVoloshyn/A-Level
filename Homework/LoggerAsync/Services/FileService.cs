@@ -42,7 +42,7 @@ namespace LoggerAsync.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                throw new Exception($"Error when writing to file by {path}: {e}");
             }
         }
 
@@ -70,14 +70,15 @@ namespace LoggerAsync.Services
             
             try
             {
-                using StreamReader reader = new StreamReader(LoggerHelper.GetLogFilePath());
+                using (var reader = new StreamReader(LoggerHelper.GetLogFilePath()))
+                {
                     var allLines = GetLines(backupLength, reader);
-
                     allLines.ToList().ForEach(line => WriteToFile(line, backupFilePath));
+                }
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error creating backup: {e.Message}");
+                throw new Exception($"Error when creating backup: {e}");
             }
         }
 
