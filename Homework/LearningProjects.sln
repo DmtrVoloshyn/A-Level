@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1706.7
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contacts", "Contacts\Contacts.csproj", "{8AA04C18-ADB6-44C7-A183-F3B894918779}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAwaitHomework", "AsyncAwaitHomework\AsyncAwaitHomework.csproj", "{B828D897-AA44-475E-907F-6B5B38AC0F64}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delegate", "Delegate\Delegate.csproj", "{73878587-F0E2-47C2-AD5A-F846A78B4EA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerAsync", "LoggerAsync\LoggerAsync.csproj", "{B1D990BA-91F3-4770-A198-3B30326FD548}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +87,14 @@ Global
 		{B828D897-AA44-475E-907F-6B5B38AC0F64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B828D897-AA44-475E-907F-6B5B38AC0F64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B828D897-AA44-475E-907F-6B5B38AC0F64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73878587-F0E2-47C2-AD5A-F846A78B4EA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73878587-F0E2-47C2-AD5A-F846A78B4EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73878587-F0E2-47C2-AD5A-F846A78B4EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73878587-F0E2-47C2-AD5A-F846A78B4EA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D990BA-91F3-4770-A198-3B30326FD548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D990BA-91F3-4770-A198-3B30326FD548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D990BA-91F3-4770-A198-3B30326FD548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D990BA-91F3-4770-A198-3B30326FD548}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
