@@ -7,5 +7,9 @@ public enum ReqresUrlTypes
     [Description("api/users/")]
     User,
     [Description("api/unknown/")]
-    Resource
+    Resource,
+    [Description("api/register")]
+    Register,
+    [Description("api/login")]
+    Login
 }

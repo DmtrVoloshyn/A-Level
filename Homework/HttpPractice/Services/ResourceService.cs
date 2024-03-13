@@ -11,11 +11,11 @@ namespace HttpPractice.Services;
 public class ResourceService : IResourceService
 {
     private readonly IInternalHttpClientService _httpClientService;
-    private readonly ILogger<UserService> _logger;
+    private readonly ILogger<ResourceService> _logger;
     private readonly ApiOption _options;
 
     public ResourceService(IInternalHttpClientService httpClientService, 
-        ILogger<UserService> logger, 
+        ILogger<ResourceService> logger, 
         IOptions<ApiOption> options)
     {
         _httpClientService = httpClientService;

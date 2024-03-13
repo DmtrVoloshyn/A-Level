@@ -1,5 +1,6 @@
 using System.Text;
 using HttpPractice.Services.Abstractions;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace HttpPractice.Services;
@@ -7,10 +8,12 @@ namespace HttpPractice.Services;
 public class InternalHttpClientService : IInternalHttpClientService
 {
     private readonly IHttpClientFactory _clientFactory;
+    private readonly ILogger<IInternalHttpClientService> _logger;
 
-    public InternalHttpClientService(IHttpClientFactory clientFactory)
+    public InternalHttpClientService(IHttpClientFactory clientFactory, ILogger<IInternalHttpClientService> logger)
     {
         _clientFactory = clientFactory;
+        _logger = logger;
     }
     
     public async Task<TResponse> SendAsync<TResponse, TRequest>(
@@ -39,6 +42,8 @@ public class InternalHttpClientService : IInternalHttpClientService
 
             return response;
         }
+        
+        _logger.LogError(await result.Content.ReadAsStringAsync());
 
         return default(TResponse)!;
     }

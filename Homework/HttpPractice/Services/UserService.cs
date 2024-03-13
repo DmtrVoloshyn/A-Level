@@ -55,8 +55,7 @@ public class UserService : IUserService
     public async Task<UserResponse> CreateUser(string name, string job)
     {
         var result = await _httpClientService.SendAsync<UserResponse, UserRequest>
-        ($"{_options.Host}{ReqresUrlTypes.User.GetDescriptionFromEnum()}",
-            HttpMethod.Post,
+        ($"{_options.Host}{ReqresUrlTypes.User.GetDescriptionFromEnum()}", HttpMethod.Post,
             new UserRequest()
             {
                 Job = job,

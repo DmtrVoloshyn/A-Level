@@ -6,11 +6,13 @@ public class App
 {
     private readonly IUserService _userService;
     private readonly IResourceService _resourceService;
+    private readonly IAuthorizationService _authorizationService;
     
-    public App(IUserService userService, IResourceService resourceService)
+    public App(IUserService userService, IResourceService resourceService, IAuthorizationService authorizationService)
     {
         _userService = userService;
         _resourceService = resourceService;
+        _authorizationService = authorizationService;
     }
 
     public async Task Start()
@@ -24,5 +26,10 @@ public class App
 
         var resources = await _resourceService.GetResources();
         var resource = await _resourceService.GetResourceById(2);
+
+        var registeredUser = await _authorizationService.RegisterUser("eve.holt@reqres.in", "pistol");
+        var unsuccessfulRegistration = await _authorizationService.RegisterUser("sydney@fife", null!);
+        var loginUser = await _authorizationService.LoginUser("eve.holt@reqres.in", "cityslicka");
+        var unsuccessfulLoginUser = await _authorizationService.LoginUser("peter@klaven", null!);
     }
 }
