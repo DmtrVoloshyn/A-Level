@@ -8,7 +8,7 @@ public class BreedEntityConfiguration : IEntityTypeConfiguration<BreedEntity>
 {
     public void Configure(EntityTypeBuilder<BreedEntity> builder)
     {
-        builder.ToTable("breed");
+        builder.ToTable("breed", schema:"pet_db");
         
         builder.HasKey(e => e.Id);
         builder.Property(e => e.Id).HasColumnName("id");

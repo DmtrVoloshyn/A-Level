@@ -8,7 +8,7 @@ public class LocationEntityConfiguration : IEntityTypeConfiguration<LocationEnti
 {
     public void Configure(EntityTypeBuilder<LocationEntity> builder)
     {
-        builder.ToTable("location");
+        builder.ToTable("location", schema:"pet_db");
         
         builder.HasKey(e => e.Id);
         builder.Property(e => e.Id).HasColumnName("id");

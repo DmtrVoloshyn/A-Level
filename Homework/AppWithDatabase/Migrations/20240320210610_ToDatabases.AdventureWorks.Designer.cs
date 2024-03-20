@@ -3,6 +3,7 @@ using AppWithDatabase.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppWithDatabase.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240320210610_ToDatabases.AdventureWorks")]
+    partial class ToDatabasesAdventureWorks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +49,7 @@ namespace AppWithDatabase.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("breed", "AdventureWorks");
+                    b.ToTable("breed", "Databases.AdventureWorks");
                 });
 
             modelBuilder.Entity("AppWithDatabase.Data.Entities.CategoryEntity", b =>
@@ -65,7 +68,7 @@ namespace AppWithDatabase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("category", "AdventureWorks");
+                    b.ToTable("category", "Databases.AdventureWorks");
                 });
 
             modelBuilder.Entity("AppWithDatabase.Data.Entities.LocationEntity", b =>
@@ -84,7 +87,7 @@ namespace AppWithDatabase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("location", "AdventureWorks");
+                    b.ToTable("location", "Databases.AdventureWorks");
                 });
 
             modelBuilder.Entity("AppWithDatabase.Data.Entities.PetEntity", b =>
@@ -135,7 +138,7 @@ namespace AppWithDatabase.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("pet", "AdventureWorks");
+                    b.ToTable("pet", "Databases.AdventureWorks");
                 });
 
             modelBuilder.Entity("AppWithDatabase.Data.Entities.BreedEntity", b =>

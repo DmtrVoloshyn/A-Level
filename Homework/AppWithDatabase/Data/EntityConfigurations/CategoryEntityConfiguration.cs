@@ -8,7 +8,7 @@ public class CategoryEntityConfiguration : IEntityTypeConfiguration<CategoryEnti
 {
     public void Configure(EntityTypeBuilder<CategoryEntity> builder)
     {
-        builder.ToTable("category");
+        builder.ToTable("category", schema:"pet_db");
         
         builder.HasKey(e => e.Id);
         builder.Property(e => e.Id).HasColumnName("id");

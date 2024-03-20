@@ -3,6 +3,6 @@
     "IsNeedMigration":  true
   },
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost,1434;Database=master;User ID=sa;Password=1My_password;TrustServerCertificate=true"
+    "DefaultConnection": "Server=localhost,1434;Database=AdventureWorks;User ID=sa;Password=1My_password;TrustServerCertificate=true"
   }
 }
