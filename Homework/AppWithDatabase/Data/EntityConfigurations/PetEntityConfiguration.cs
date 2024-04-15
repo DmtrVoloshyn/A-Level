@@ -27,7 +27,7 @@ public class PetEntityConfiguration : IEntityTypeConfiguration<PetEntity>
             .OnDelete(DeleteBehavior.NoAction);
 
         builder
-            .HasOne(e => e.Bread)
+            .HasOne(e => e.Breed)
             .WithMany(e => e.Pets)
             .HasForeignKey(e => e.BreedId)
             .OnDelete(DeleteBehavior.NoAction);

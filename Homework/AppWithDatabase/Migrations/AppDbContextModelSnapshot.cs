@@ -19,10 +19,7 @@ namespace AppWithDatabase.Migrations
                 .HasAnnotation("ProductVersion", "9.0.0-preview.2.24128.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseHiLo(modelBuilder, "EntityFrameworkHiLoSequence");
-
-            modelBuilder.HasSequence("EntityFrameworkHiLoSequence")
-                .IncrementsBy(10);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("AppWithDatabase.Data.Entities.BreedEntity", b =>
                 {
@@ -31,7 +28,7 @@ namespace AppWithDatabase.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("BreedName")
                         .IsRequired()
@@ -46,7 +43,7 @@ namespace AppWithDatabase.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("breed", "AdventureWorks");
+                    b.ToTable("breed", "pet_db");
                 });
 
             modelBuilder.Entity("AppWithDatabase.Data.Entities.CategoryEntity", b =>
@@ -56,7 +53,7 @@ namespace AppWithDatabase.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
@@ -65,7 +62,7 @@ namespace AppWithDatabase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("category", "AdventureWorks");
+                    b.ToTable("category", "pet_db");
                 });
 
             modelBuilder.Entity("AppWithDatabase.Data.Entities.LocationEntity", b =>
@@ -75,7 +72,7 @@ namespace AppWithDatabase.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("LocationName")
                         .IsRequired()
@@ -84,7 +81,7 @@ namespace AppWithDatabase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("location", "AdventureWorks");
+                    b.ToTable("location", "pet_db");
                 });
 
             modelBuilder.Entity("AppWithDatabase.Data.Entities.PetEntity", b =>
@@ -94,7 +91,7 @@ namespace AppWithDatabase.Migrations
                         .HasColumnType("int")
                         .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Age")
                         .HasColumnType("int")
@@ -135,7 +132,7 @@ namespace AppWithDatabase.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("pet", "AdventureWorks");
+                    b.ToTable("pet", "pet_db");
                 });
 
             modelBuilder.Entity("AppWithDatabase.Data.Entities.BreedEntity", b =>
@@ -151,7 +148,7 @@ namespace AppWithDatabase.Migrations
 
             modelBuilder.Entity("AppWithDatabase.Data.Entities.PetEntity", b =>
                 {
-                    b.HasOne("AppWithDatabase.Data.Entities.BreedEntity", "Bread")
+                    b.HasOne("AppWithDatabase.Data.Entities.BreedEntity", "Breed")
                         .WithMany("Pets")
                         .HasForeignKey("BreedId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -169,7 +166,7 @@ namespace AppWithDatabase.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Bread");
+                    b.Navigation("Breed");
 
                     b.Navigation("Category");
 
