@@ -16,10 +16,9 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new PetEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new BreedEntityConfiguration());
         modelBuilder.ApplyConfiguration(new LocationEntityConfiguration());
         modelBuilder.ApplyConfiguration(new CategoryEntityConfiguration());
-        modelBuilder.UseHiLo();
+        modelBuilder.ApplyConfiguration(new BreedEntityConfiguration());
+        modelBuilder.ApplyConfiguration(new PetEntityConfiguration());
     }
 }

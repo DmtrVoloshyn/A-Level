@@ -1,5 +1,10 @@
 ﻿using AppWithDatabase;
 using AppWithDatabase.Data;
+using AppWithDatabase.Data.Entities;
+using AppWithDatabase.Data.Models;
+using AppWithDatabase.Data.Repositories;
+using AppWithDatabase.Services;
+using AppWithDatabase.Services.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +17,14 @@ void ConfigureService(ServiceCollection serviceCollection, IConfiguration config
 
     serviceCollection
         .AddLogging(configure => configure.AddConsole())
+        .AddTransient<IRepository<BreedEntity>, BreedsRepository>()
+        .AddTransient<IRepository<CategoryEntity>, CategoriesRepository>()
+        .AddTransient<IRepository<LocationEntity>, LocationsRepository>()
+        .AddTransient<IRepository<PetEntity>, PetsRepository>()
+        .AddTransient<IService<Category>, CategoryService>()
+        .AddTransient<IService<Breed>, BreedService>()
+        .AddTransient<IService<Location>, LocationService>()
+        .AddTransient<IService<Pet>, PetService>()
         .AddTransient<App>();
 }
 
