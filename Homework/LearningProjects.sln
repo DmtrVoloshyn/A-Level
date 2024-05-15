@@ -30,7 +30,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerAsync", "LoggerAsync\LoggerAsync.csproj", "{B1D990BA-91F3-4770-A198-3B30326FD548}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppWithDatabase", "AppWithDatabase\AppWithDatabase.csproj", "{54BE538E-2913-4A68-A287-3943F42FF39D}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpPractice", "HttpPractice\HttpPractice.csproj", "{0BAAF144-0A1C-40AC-9AC0-322255C9A988}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlExcercises", "HtmlExcercises\HtmlExcercises.csproj", "{DFCDC433-2976-4EA1-A970-BA2837FFA9BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -114,6 +117,10 @@ Global
 		{0BAAF144-0A1C-40AC-9AC0-322255C9A988}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BAAF144-0A1C-40AC-9AC0-322255C9A988}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BAAF144-0A1C-40AC-9AC0-322255C9A988}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFCDC433-2976-4EA1-A970-BA2837FFA9BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFCDC433-2976-4EA1-A970-BA2837FFA9BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFCDC433-2976-4EA1-A970-BA2837FFA9BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFCDC433-2976-4EA1-A970-BA2837FFA9BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
