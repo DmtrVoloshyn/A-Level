@@ -1,0 +1,30 @@
+﻿version: '3.8'
+
+services:
+  catalog.api:
+    build:
+      context: .
+      dockerfile: WebApplicationHomework/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5001
+    ports:
+      - 5001:5001
+      
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx.conf:ro
+
+networks:
+  default:
+    driver: bridge
+    internal: false
+    attachable: true
+    ipam:
+      driver: default
+      config:
+        - subnet:  192.168.0.0/24
+          gateway: 192.168.0.4

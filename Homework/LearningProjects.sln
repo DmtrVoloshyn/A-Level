@@ -35,6 +35,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpPractice", "HttpPractic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALevelWebApi", "ALevelWebApi\ALevelWebApi.csproj", "{79166FD0-230D-488A-A2F3-8227DF7A5CCA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module_6", "Module_6", "{F55CD339-F84D-4718-B5AA-68D619BB103C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationHomework", "WebApplicationHomework\WebApplicationHomework.csproj", "{8C10459B-1888-4063-86FB-B7C66DFD5F4B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{472E31EC-F04B-49E7-8BD6-2815C94CFE35}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +130,10 @@ Global
 		{79166FD0-230D-488A-A2F3-8227DF7A5CCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79166FD0-230D-488A-A2F3-8227DF7A5CCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79166FD0-230D-488A-A2F3-8227DF7A5CCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C10459B-1888-4063-86FB-B7C66DFD5F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C10459B-1888-4063-86FB-B7C66DFD5F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C10459B-1888-4063-86FB-B7C66DFD5F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C10459B-1888-4063-86FB-B7C66DFD5F4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -129,5 +142,7 @@ Global
 		SolutionGuid = {DB8A816D-2E38-4FDF-A4E7-F5DB067624D6}
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{79166FD0-230D-488A-A2F3-8227DF7A5CCA} = {F55CD339-F84D-4718-B5AA-68D619BB103C}
+		{8C10459B-1888-4063-86FB-B7C66DFD5F4B} = {F55CD339-F84D-4718-B5AA-68D619BB103C}
 	EndGlobalSection
 EndGlobal
