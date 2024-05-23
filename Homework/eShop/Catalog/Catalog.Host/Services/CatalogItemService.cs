@@ -37,12 +37,11 @@ public class CatalogItemService : BaseDataService<ApplicationDbContext>, ICatalo
     {
         var items = await ExecuteSafeAsync(() =>
             _catalogItemRepository.GetByPage(brandTitle, typeTitle, pageIndex, pageSize));
-        var itemDtos = _mapper.Map<IEnumerable<CatalogItemDto>>(items.Data);
 
         return new PaginatedItems<CatalogItemDto>
         {
             TotalCount = items.TotalCount,
-            Data = itemDtos
+            Data = _mapper.Map<IEnumerable<CatalogItemDto>>(items.Data)
         };
     }
 

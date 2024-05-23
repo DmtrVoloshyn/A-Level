@@ -126,13 +126,15 @@ public class CatalogItemRepository : ICatalogItemRepository
             
             return item.Id;
         }
-
+        
+        _logger.Log(LogLevel.Error, $"Item with item_id {id} not found");
         return -1;
     }
 
     public async Task<bool> Delete(int id)
     {
-        var item = await _dbContext.CatalogItems.FirstOrDefaultAsync(f => f.Id == id);
+        var item = await _dbContext.CatalogItems
+            .FirstOrDefaultAsync(e => e.Id == id);
 
         if (item is not null)
         {
@@ -140,7 +142,8 @@ public class CatalogItemRepository : ICatalogItemRepository
             await _dbContext.SaveChangesAsync();
             return true;
         }
-
+        
+        _logger.Log(LogLevel.Error, $"Item with item_id {id} not found");
         return false;
     }
 }
