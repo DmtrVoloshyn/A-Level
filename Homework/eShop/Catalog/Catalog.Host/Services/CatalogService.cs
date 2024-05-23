@@ -24,11 +24,11 @@ public class CatalogService : BaseDataService<ApplicationDbContext>, ICatalogSer
         _mapper = mapper;
     }
 
-    public async Task<PaginatedItemsResponse<CatalogItemDto>> GetCatalogItemsAsync(int pageSize, int pageIndex)
+    public async Task<PaginatedItemsResponse<CatalogItemDto>> GetCatalogItemsAsync(int pageSize, int pageIndex, string? brandTitle, string? brandType)
     {
         return await ExecuteSafeAsync(async () =>
         {
-            var result = await _catalogItemRepository.GetByPageAsync(pageIndex, pageSize);
+            var result = await _catalogItemRepository.GetByPage(brandTitle, brandType, pageIndex, pageSize);
             return new PaginatedItemsResponse<CatalogItemDto>()
             {
                 Count = result.TotalCount,

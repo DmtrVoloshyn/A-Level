@@ -23,11 +23,11 @@ public class CatalogBffController : ControllerBase
         _catalogService = catalogService;
     }
 
-    [HttpPost]
-    [ProducesResponseType(typeof(PaginatedItemsResponse<CatalogItemDto>), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> Items(PaginatedItemsRequest request)
-    {
-        var result = await _catalogService.GetCatalogItemsAsync(request.PageSize, request.PageIndex);
-        return Ok(result);
-    }
+    // [HttpPost]
+    // [ProducesResponseType(typeof(PaginatedItemsResponse<CatalogItemDto>), (int)HttpStatusCode.OK)]
+    // public async Task<IActionResult> Items(PaginatedItemsRequest request)
+    // {
+    //     var result = await _catalogService.GetCatalogItemsAsync(request.PageSize, request.PageIndex);
+    //     return Ok(result);
+    // }
 }
