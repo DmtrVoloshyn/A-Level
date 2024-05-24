@@ -39,22 +39,12 @@ public class CatalogTypeRepository : ICatalogTypeRepository
         return item.Entity.Id;
     }
 
-    public async Task<int?> Update(CatalogType type)
+    public async Task<CatalogType> Update(CatalogType type)
     {
-        var item = await _dbContext.CatalogTypes
-            .FirstOrDefaultAsync(e => e.Id == type.Id);
-
-        if (item is not null)
-        {
-            _dbContext.CatalogTypes.Update(type);
-
-            await _dbContext.SaveChangesAsync();
-
-            return item.Id;
-        }
-
-        _logger.Log(LogLevel.Error, $"Item with id {type.Id} not found");
-        return null;
+        _dbContext.Attach(type);
+        _dbContext.Entry(type).Property(x => x.Type).IsModified = true;
+        await _dbContext.SaveChangesAsync();
+        return type;
     }
 
     public async Task<bool> Delete(int id)

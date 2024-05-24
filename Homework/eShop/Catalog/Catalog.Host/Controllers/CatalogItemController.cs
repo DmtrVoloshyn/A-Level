@@ -14,32 +14,26 @@ namespace Catalog.Host.Controllers;
 public class CatalogItemController : ControllerBase
 {
     private readonly ILogger<CatalogItemController> _logger;
-    private readonly ICatalogItemService _catalogItemService;
+    private readonly ICatalogItemService _service;
 
     public CatalogItemController(
         ILogger<CatalogItemController> logger,
-        ICatalogItemService catalogItemService)
+        ICatalogItemService service)
     {
         _logger = logger;
-        _catalogItemService = catalogItemService;
+        _service = service;
     }
 
     [HttpPost("create")]
-    [ProducesResponseType(typeof(AddItemResponse<int?>), (int)HttpStatusCode.Created)]
-    public async Task<IActionResult> Create(CreateProductRequest request)
+    [ProducesResponseType(typeof(AddSomeItemResponse<int?>), (int)HttpStatusCode.Created)]
+    public async Task<IActionResult> Create(CreateItemRequest request)
     {
-        var result = await _catalogItemService.Add(request.Name, 
-            request.Description, 
-            request.Price, 
-            request.AvailableStock, 
-            request.CatalogBrandId, 
-            request.CatalogTypeId, 
-            request.PictureFileName);
+        var result = await _service.Add(request);
         
-        return Ok(new AddItemResponse<int?> { Id = result });
+        return Ok(new AddSomeItemResponse<int?> { Id = result });
     }
 
-    [HttpGet]
+    [HttpGet("items")]
     [ProducesResponseType(typeof(PaginatedItems<CatalogItemDto>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> GetPaginated(
         [FromQuery] string? brandTitle = null, 
@@ -47,7 +41,7 @@ public class CatalogItemController : ControllerBase
         [FromQuery] int pageSize = 10, 
         [FromQuery] int pageIndex = 0)
     {
-        var result = await _catalogItemService.Get(pageSize, pageIndex, brandTitle, typeTitle);
+        var result = await _service.Get(pageSize, pageIndex, brandTitle, typeTitle);
         
         return Ok(result);
     }
@@ -56,7 +50,7 @@ public class CatalogItemController : ControllerBase
     [ProducesResponseType(typeof(CatalogItemDto), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Get([FromRoute] int id)
     {
-        var result = await _catalogItemService.GetById(id);
+        var result = await _service.GetById(id);
 
         if (result is null)
         {
@@ -70,7 +64,7 @@ public class CatalogItemController : ControllerBase
     [ProducesResponseType(typeof(CatalogItemDto), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        var result = await _catalogItemService.DeleteItem(id);
+        var result = await _service.Remove(id);
 
         if (result is false)
         {
@@ -80,21 +74,12 @@ public class CatalogItemController : ControllerBase
         return Ok(result);
     }
     
-    //FIXME
-    [HttpPut("update/{id}")]
-    [ProducesResponseType(typeof(AddItemResponse<int?>), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> Update([FromRoute] int id, CreateProductRequest request)
+    [HttpPut("update")]
+    [ProducesResponseType(typeof(AddSomeItemResponse<int?>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> Update(UpdateItemRequest request)
     {
-        var result = await _catalogItemService.UpdateItem(
-            id, 
-            request.Name, 
-            request.Description, 
-            request.Price, 
-            request.AvailableStock, 
-            request.CatalogBrandId, 
-            request.CatalogTypeId, 
-            request.PictureFileName);
+        var result = await _service.Update(request);
         
-        return Ok(new AddItemResponse<int?> { Id = result });
+        return Ok(new AddSomeItemResponse<int?> { Id = result.Id });
     }
 }

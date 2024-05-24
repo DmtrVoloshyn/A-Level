@@ -19,21 +19,13 @@ public class CatalogItemRepository : ICatalogItemRepository
         _logger = logger;
     }
 
-    public async Task<int?> Add(string name, string description, decimal price, int availableStock, int catalogBrandId, int catalogTypeId, string? pictureFileName)
+    public async Task<int?> Create(CatalogItem item)
     {
-        var item = await _dbContext.AddAsync(new CatalogItem
-        {
-            CatalogBrandId = catalogBrandId,
-            CatalogTypeId = catalogTypeId,
-            Description = description,
-            Name = name,
-            PictureFileName = pictureFileName ?? "",
-            Price = price
-        });
+        var result = await _dbContext.AddAsync(item);
 
         await _dbContext.SaveChangesAsync();
 
-        return item.Entity.Id;
+        return result.Entity.Id;
     }
 
     public async Task<PaginatedItems<CatalogItem>> GetByPage(string? brandTitle, string? typeTitle, int pageIndex, int pageSize)
@@ -96,39 +88,14 @@ public class CatalogItemRepository : ICatalogItemRepository
         return item.Entity.Id;
     }
 
-    public async Task<int> Update(int id, 
-        string name, 
-        string description, 
-        decimal price, 
-        int availableStock, 
-        int catalogBrandId,
-        int catalogTypeId, 
-        string? pictureFileName)
+    public async Task<CatalogItem> Update(CatalogItem item)
     {
-        var item = await _dbContext.CatalogItems
-            .FirstOrDefaultAsync(f => f.Id == id);
-
-        if (item is not null)
-        {
-             _dbContext.CatalogItems.Update(
-                new CatalogItem
-                {
-                    AvailableStock = availableStock,
-                    Name = name,
-                    Description = description,
-                    Price = price,
-                    CatalogBrandId = catalogBrandId,
-                    CatalogTypeId = catalogTypeId,
-                    PictureFileName = pictureFileName ?? ""
-                });
-        
-            await _dbContext.SaveChangesAsync();
-            
-            return item.Id;
-        }
-        
-        _logger.Log(LogLevel.Error, $"Item with item_id {id} not found");
-        return -1;
+        _dbContext.Attach(item);
+        _dbContext.Entry(item).Property(x => x.Name).IsModified = true;
+        _dbContext.Entry(item).Property(x => x.Description).IsModified = true;
+        _dbContext.Entry(item).Property(x => x.Price).IsModified = true;
+        await _dbContext.SaveChangesAsync();
+        return item;
     }
 
     public async Task<bool> Delete(int id)

@@ -1,4 +1,5 @@
 using System.Net;
+using Catalog.Host.Data;
 using Catalog.Host.Models.Dtos;
 using Catalog.Host.Models.Requests;
 using Catalog.Host.Models.Response;
@@ -14,20 +15,96 @@ public class CatalogBffController : ControllerBase
 {
     private readonly ILogger<CatalogBffController> _logger;
     private readonly ICatalogService _catalogService;
+    private readonly ICatalogItemService _catalogItemService;
+    private readonly ICatalogBrandService _catalogBrandService;
+    private readonly ICatalogTypeService _catalogTypeService;
+
 
     public CatalogBffController(
         ILogger<CatalogBffController> logger,
-        ICatalogService catalogService)
+        ICatalogService catalogService,
+        ICatalogItemService catalogItemService,
+        ICatalogBrandService catalogBrandService, ICatalogTypeService catalogTypeService)
     {
         _logger = logger;
         _catalogService = catalogService;
+        _catalogItemService = catalogItemService;
+        _catalogBrandService = catalogBrandService;
+        _catalogTypeService = catalogTypeService;
     }
 
-    // [HttpPost]
-    // [ProducesResponseType(typeof(PaginatedItemsResponse<CatalogItemDto>), (int)HttpStatusCode.OK)]
-    // public async Task<IActionResult> Items(PaginatedItemsRequest request)
-    // {
-    //     var result = await _catalogService.GetCatalogItemsAsync(request.PageSize, request.PageIndex);
-    //     return Ok(result);
-    // }
+    [HttpPost]
+    [ProducesResponseType(typeof(PaginatedItemsResponse<CatalogItemDto>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> Items(PaginatedItemsRequest request)
+    {
+        var result = await _catalogService.GetCatalogItemsAsync(
+            request.PageSize, 
+            request.PageIndex, 
+            brandTitle:null, 
+            brandType:null);
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(CatalogItemDto), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetItemById(int id)
+    {
+        var result = await _catalogItemService.GetById(id);
+        if (result == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(PaginatedItems<CatalogItemDto>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetByBrandName(int pageSize, int pageIndex, string brandTitle)
+    {
+        var result = await _catalogItemService.Get(pageSize, pageIndex, brandTitle, typeTitle:null);
+        if (result == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(PaginatedItems<CatalogItemDto>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetByTypeName(int pageSize, int pageIndex, string typeName)
+    {
+        var result = await _catalogItemService.Get(pageSize, pageIndex, brandTitle:null, typeName);
+        if (result == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(result);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetBrands()
+    {
+        var brands = await _catalogBrandService.Get();
+        if (brands == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(brands);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetTypes()
+    {
+        var types = await _catalogTypeService.Get();
+        if (types == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(types);
+    }
 }

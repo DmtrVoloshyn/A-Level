@@ -1,6 +1,8 @@
 using AutoMapper;
 using Catalog.Host.Data;
+using Catalog.Host.Data.Entities;
 using Catalog.Host.Models.Dtos;
+using Catalog.Host.Models.Requests;
 using Catalog.Host.Repositories.Interfaces;
 using Catalog.Host.Services.Interfaces;
 
@@ -21,9 +23,9 @@ public class CatalogItemService : BaseDataService<ApplicationDbContext>, ICatalo
         _mapper = mapper;
     }
 
-    public Task<int?> Add(string name, string description, decimal price, int availableStock, int catalogBrandId, int catalogTypeId, string? pictureFileName)
+    public Task<int?> Add(CreateItemRequest request)
     {
-        return ExecuteSafeAsync(() => _catalogItemRepository.Create(name, description, price, availableStock, catalogBrandId, catalogTypeId, pictureFileName));
+        return ExecuteSafeAsync(() => _catalogItemRepository.Create(_mapper.Map<CatalogItem>(request)));
     }
 
     public async Task<CatalogItemDto> GetById(int id)
@@ -45,28 +47,20 @@ public class CatalogItemService : BaseDataService<ApplicationDbContext>, ICatalo
         };
     }
 
-    public Task<int> UpdateItem(
-        int id, 
-        string name, 
-        string description, 
-        decimal price, 
-        int availableStock, 
-        int catalogBrandId,
-        int catalogTypeId, 
-        string? pictureFileName)
+    public Task<CatalogItemDto> Update(UpdateItemRequest request)
     {
-        return ExecuteSafeAsync(() => _catalogItemRepository.Update(
-            id, 
-            name, 
-            description, 
-            price, 
-            availableStock, 
-            catalogBrandId, 
-            catalogTypeId, 
-            pictureFileName));
+        var catalogItem = new CatalogItem()
+        {
+            Id = request.Id,
+            Name = request.Name,
+            Description = request.Description,
+            Price = request.Price
+        };
+        catalogItem = ExecuteSafeAsync(() => _catalogItemRepository.Update(catalogItem)).Result;
+        return Task.Run(() => _mapper.Map<CatalogItemDto>(catalogItem));
     }
 
-    public Task<bool> DeleteItem(int id)
+    public Task<bool> Remove(int id)
     {
         return ExecuteSafeAsync(() => _catalogItemRepository.Delete(id));
     }

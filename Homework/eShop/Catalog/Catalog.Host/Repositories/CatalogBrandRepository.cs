@@ -40,22 +40,12 @@ public class CatalogBrandRepository : ICatalogBrandRepository
         return item.Entity.Id;
     }
 
-    public async Task<int?> Update(CatalogBrand brand)
+    public async Task<CatalogBrand> Update(CatalogBrand brand)
     {
-        var item = await _dbContext.CatalogBrands
-            .FirstOrDefaultAsync(e => e.Id == brand.Id);
-
-        if (item is not null)
-        {
-            _dbContext.CatalogBrands.Update(brand);
-
-            await _dbContext.SaveChangesAsync();
-
-            return item.Id;
-        }
-        
-        _logger.Log(LogLevel.Error, $"Item with id {brand.Id} not found");
-        return null;
+        _dbContext.Attach(brand);
+        _dbContext.Entry(brand).Property(x => x.Brand).IsModified = true;
+        await _dbContext.SaveChangesAsync();
+        return brand;
     }
 
     public async Task<bool> Delete(int id)

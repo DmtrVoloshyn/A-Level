@@ -1,6 +1,5 @@
 using Catalog.Host.Data;
 using Catalog.Host.Data.Entities;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.Host.Repositories.Interfaces;
 
@@ -13,23 +12,10 @@ public interface ICatalogItemRepository
         int pageSize);
     
     Task<CatalogItem?> GetById(int id);
-    
-    Task<int?> Create(string name, 
-        string description, 
-        decimal price, 
-        int availableStock, 
-        int catalogBrandId, 
-        int catalogTypeId, 
-        string? pictureFileName);
-    
-    Task<int> Update(int id, 
-        string name, 
-        string description, 
-        decimal price, 
-        int availableStock, 
-        int catalogBrandId, 
-        int catalogTypeId, 
-        string? pictureFileName);
+
+    Task<int?> Create(CatalogItem item);
+
+    Task<CatalogItem> Update(CatalogItem item);
     
     Task<bool> Delete(int id);
 }

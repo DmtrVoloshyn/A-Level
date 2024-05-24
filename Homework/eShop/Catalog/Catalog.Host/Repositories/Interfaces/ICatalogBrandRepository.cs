@@ -9,8 +9,8 @@ public interface ICatalogBrandRepository
     Task<CatalogBrand?> GetById(int id);
     
     Task<int?> Create(CatalogBrand brand);
-    
-    Task<int?> Update(CatalogBrand brand);
+
+    Task<CatalogBrand> Update(CatalogBrand brand);
     
     Task<bool> Delete(int id);
 }

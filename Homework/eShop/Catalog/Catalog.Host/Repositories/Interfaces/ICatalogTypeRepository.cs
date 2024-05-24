@@ -9,8 +9,8 @@ public interface ICatalogTypeRepository
     Task<CatalogType?> GetById(int id);
     
     Task<int?> Create(CatalogType type);
-    
-    Task<int?> Update(CatalogType type);
+
+    Task<CatalogType> Update(CatalogType type);
     
     Task<bool> Delete(int id);
 }
