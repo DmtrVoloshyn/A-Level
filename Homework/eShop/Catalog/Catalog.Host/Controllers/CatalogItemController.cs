@@ -13,14 +13,10 @@ namespace Catalog.Host.Controllers;
 [Route(ComponentDefaults.DefaultRoute)]
 public class CatalogItemController : ControllerBase
 {
-    private readonly ILogger<CatalogItemController> _logger;
     private readonly ICatalogItemService _service;
 
-    public CatalogItemController(
-        ILogger<CatalogItemController> logger,
-        ICatalogItemService service)
+    public CatalogItemController(ICatalogItemService service)
     {
-        _logger = logger;
         _service = service;
     }
 

@@ -1,3 +1,4 @@
+using System.Data;
 using AutoMapper;
 using Catalog.Host.Data;
 using Catalog.Host.Data.Entities;
@@ -16,7 +17,8 @@ public class CatalogItemService : BaseDataService<ApplicationDbContext>, ICatalo
     public CatalogItemService(
         IDbContextWrapper<ApplicationDbContext> dbContextWrapper,
         ILogger<BaseDataService<ApplicationDbContext>> logger,
-        ICatalogItemRepository catalogItemRepository, IMapper mapper)
+        ICatalogItemRepository catalogItemRepository, 
+        IMapper mapper)
         : base(dbContextWrapper, logger)
     {
         _catalogItemRepository = catalogItemRepository;
@@ -47,17 +49,24 @@ public class CatalogItemService : BaseDataService<ApplicationDbContext>, ICatalo
         };
     }
 
-    public Task<CatalogItemDto> Update(UpdateItemRequest request)
+    public async Task<CatalogItemDto> Update(UpdateItemRequest request)
     {
-        var catalogItem = new CatalogItem()
+        var item = await _catalogItemRepository.GetById(request.Id);
+        
+        if (item is not null)
         {
-            Id = request.Id,
-            Name = request.Name,
-            Description = request.Description,
-            Price = request.Price
-        };
-        catalogItem = ExecuteSafeAsync(() => _catalogItemRepository.Update(catalogItem)).Result;
-        return Task.Run(() => _mapper.Map<CatalogItemDto>(catalogItem));
+            var catalogItem = new CatalogItem()
+            {
+                Id = request.Id,
+                Name = request.Name,
+                Description = request.Description,
+                Price = request.Price
+            };
+            catalogItem = ExecuteSafeAsync(() => _catalogItemRepository.Update(catalogItem)).Result;
+            return _mapper.Map<CatalogItemDto>(catalogItem);
+        }
+
+        throw new InvalidExpressionException($"Item with id {request.Id} not found");
     }
 
     public Task<bool> Remove(int id)
