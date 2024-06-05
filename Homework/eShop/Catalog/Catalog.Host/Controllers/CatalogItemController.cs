@@ -4,14 +4,11 @@ using Catalog.Host.Models.Dtos;
 using Catalog.Host.Models.Requests;
 using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
-using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.Host.Controllers;
 
-[ApiController]
-[Route(ComponentDefaults.DefaultRoute)]
-public class CatalogItemController : ControllerBase
+public class CatalogItemController : BaseController
 {
     private readonly ICatalogItemService _service;
 

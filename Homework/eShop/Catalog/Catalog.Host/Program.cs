@@ -1,5 +1,6 @@
 using Catalog.Host.Configurations;
 using Catalog.Host.Data;
+using Catalog.Host.Middleware;
 using Catalog.Host.Repositories;
 using Catalog.Host.Repositories.Interfaces;
 using Catalog.Host.Services;
@@ -32,11 +33,9 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseRouting();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapDefaultControllerRoute();
-    endpoints.MapControllers();
-});
+app.UseMiddleware<ExceptionInterceptorMiddleware>();
+app.MapDefaultControllerRoute();
+app.MapControllers();
 
 CreateDbIfNotExists(app);
 app.Run();

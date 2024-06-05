@@ -2,14 +2,11 @@ using System.Net;
 using Catalog.Host.Models.Dtos;
 using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
-using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.Host.Controllers;
 
-[ApiController]
-[Route(ComponentDefaults.DefaultRoute)]
-public class CatalogBrandController : ControllerBase
+public class CatalogBrandController : BaseController
 {
     private readonly ILogger<CatalogBrandController> _logger;
     private readonly ICatalogBrandService _service;

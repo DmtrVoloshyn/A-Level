@@ -4,14 +4,11 @@ using Catalog.Host.Models.Dtos;
 using Catalog.Host.Models.Requests;
 using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
-using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.Host.Controllers;
 
-[ApiController]
-[Route(ComponentDefaults.DefaultRoute)]
-public class CatalogBffController : ControllerBase
+public class CatalogBffController : BaseController
 {
     private readonly ILogger<CatalogBffController> _logger;
     private readonly ICatalogService _catalogService;
