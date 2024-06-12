@@ -1,18 +1,20 @@
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace Catalog.Host.Models.Requests;
 
+[DataContract]
 public class UpdateItemRequest
 {
-    [JsonPropertyName("id")]
+    [DataMember(Name = "id")]
     public int Id { get; set; }
 
-    [JsonPropertyName("name")]
+    [DataMember(Name = "name")]
     public string Name { get; set; } = null!;
 
-    [JsonPropertyName("description")]
+    [DataMember(Name = "description")]
     public string Description { get; set; } = null!;
 
-    [JsonPropertyName("price")]
+    [DataMember(Name = "price")]
     public decimal Price { get; set; }
 }
