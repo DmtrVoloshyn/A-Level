@@ -12,10 +12,12 @@ public class WebApiErrorResponse
         Description = description ?? "";
     }
 
-    [DataMember]
+    [DataMember(Name = "name")]
     public int Code { get; }
-    [DataMember]
+    
+    [DataMember(Name = "sub_code")]
     public int SubCode { get; }
-    [DataMember]
+    
+    [DataMember(Name = "description")]
     public string Description { get; }
 }

@@ -30,6 +30,7 @@ builder.Services.AddScoped<IDbContextWrapper<ApplicationDbContext>, DbContextWra
 
 var app = builder.Build();
 
+app.UseStatusCodePages();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseRouting();
