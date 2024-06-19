@@ -1,5 +1,5 @@
 using System.Net.Mime;
-using System.Text.Json;
+using Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.Host.Middleware;
@@ -8,13 +8,15 @@ public class ExceptionInterceptorMiddleware
 {
     private readonly ILogger<ExceptionInterceptorMiddleware> _logger;
     private readonly RequestDelegate _next;
+    private readonly IJsonSerializer _jsonSerializer;
 
     public ExceptionInterceptorMiddleware(
         ILogger<ExceptionInterceptorMiddleware> logger, 
-        RequestDelegate next)
+        RequestDelegate next, IJsonSerializer jsonSerializer)
     {
         _logger = logger;
         _next = next;
+        _jsonSerializer = jsonSerializer;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -35,7 +37,7 @@ public class ExceptionInterceptorMiddleware
     
     private async Task WriteAsync(HttpContext context, ObjectResult errorResponse)
     {
-        var serializedErrorResponse = JsonSerializer.Serialize(errorResponse.Value);
+        var serializedErrorResponse = _jsonSerializer.Serialize(errorResponse.Value);
         context.Response.ContentType = MediaTypeNames.Application.Json;
         context.Response.StatusCode = errorResponse.StatusCode ?? default;
         await context.Response.WriteAsync(serializedErrorResponse);

@@ -1,15 +1,13 @@
 using Basket.Host.Models;
 using Basket.Host.Services.Interfaces;
 using Infrastructure.Exceptions;
-using Infrastructure.Identity;
+using Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Basket.Host.Controllers;
 
-[ApiController]
 [AllowAnonymous]
-[Route(ComponentDefaults.DefaultRoute)]
-public class BasketBffController : ControllerBase
+public class BasketBffController : BaseController
 {
     private readonly ILogger<BasketBffController> _logger;
     private readonly IBasketService _basketService;
@@ -30,7 +28,7 @@ public class BasketBffController : ControllerBase
         return Ok();
     }
 
-    [HttpPost("{id}")]
+    [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetItemsResponseDto), (int)HttpStatusCode.OK)]
     [ProducesResponseType((int)HttpStatusCode.NotFound)]
     public async Task<IActionResult> GetItems([FromRoute] Guid id)
@@ -44,7 +42,7 @@ public class BasketBffController : ControllerBase
         catch (BusinessException e)
         {
             _logger.Log(LogLevel.Error, e.Message);
-            return NotFound(e.Message);
+            return NotFound(new WebApiErrorResponse((int)HttpStatusCode.NotFound, null, e.Message));
         }
         
         return Ok(responseDto);

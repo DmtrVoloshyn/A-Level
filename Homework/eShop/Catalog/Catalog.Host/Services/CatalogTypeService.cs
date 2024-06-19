@@ -4,6 +4,8 @@ using Catalog.Host.Data.Entities;
 using Catalog.Host.Models.Dtos;
 using Catalog.Host.Repositories;
 using Catalog.Host.Services.Interfaces;
+using Infrastructure.Services;
+using Infrastructure.Services.Interfaces;
 
 namespace Catalog.Host.Services;
 

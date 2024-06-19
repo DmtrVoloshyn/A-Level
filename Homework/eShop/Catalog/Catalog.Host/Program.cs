@@ -5,6 +5,8 @@ using Catalog.Host.Repositories;
 using Catalog.Host.Repositories.Interfaces;
 using Catalog.Host.Services;
 using Catalog.Host.Services.Interfaces;
+using Infrastructure.Services;
+using Infrastructure.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var configuration = GetConfiguration();
@@ -23,7 +25,7 @@ builder.Services.AddTransient<ICatalogService, CatalogService>();
 builder.Services.AddTransient<ICatalogItemService, CatalogItemService>();
 builder.Services.AddTransient<ICatalogBrandService, CatalogBrandService>();
 builder.Services.AddTransient<ICatalogTypeService, CatalogTypeService>();
-
+builder.Services.AddTransient<IJsonSerializer, JsonSerializer>();
 
 builder.Services.AddDbContextFactory<ApplicationDbContext>(opts => opts.UseNpgsql(configuration["ConnectionString"]));
 builder.Services.AddScoped<IDbContextWrapper<ApplicationDbContext>, DbContextWrapper<ApplicationDbContext>>();

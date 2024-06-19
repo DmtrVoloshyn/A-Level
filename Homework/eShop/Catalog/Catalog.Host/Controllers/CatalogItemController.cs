@@ -4,6 +4,8 @@ using Catalog.Host.Models.Dtos;
 using Catalog.Host.Models.Requests;
 using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
+using Infrastructure;
+using Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.Host.Controllers;
@@ -41,13 +43,14 @@ public class CatalogItemController : BaseController
     
     [HttpGet("items/{id}")]
     [ProducesResponseType(typeof(CatalogItemDto), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
     public async Task<IActionResult> Get([FromRoute] int id)
     {
         var result = await _service.GetById(id);
 
         if (result is null)
         {
-            return NotFound();
+            return NotFound(new WebApiErrorResponse((int)HttpStatusCode.NotFound, null, null));
         }
         
         return Ok(result);
@@ -55,13 +58,14 @@ public class CatalogItemController : BaseController
     
     [HttpDelete("items/{id}")]
     [ProducesResponseType(typeof(CatalogItemDto), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
         var result = await _service.Remove(id);
 
         if (result is false)
         {
-            return NotFound(id);
+            return NotFound(new WebApiErrorResponse((int)HttpStatusCode.NotFound, null, null));
         }
         
         return Ok(result);

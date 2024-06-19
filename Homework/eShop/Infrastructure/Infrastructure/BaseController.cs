@@ -1,9 +1,8 @@
 using System.Net.Mime;
-using Catalog.Host.Models.Response;
-using Infrastructure;
+using Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Catalog.Host.Controllers;
+namespace Infrastructure;
 
 [ApiController]
 [Route(ComponentDefaults.DefaultRoute)]

@@ -2,6 +2,8 @@ using System.Net;
 using Catalog.Host.Models.Dtos;
 using Catalog.Host.Models.Response;
 using Catalog.Host.Services.Interfaces;
+using Infrastructure;
+using Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Catalog.Host.Controllers;
@@ -28,13 +30,14 @@ public class CatalogTypeController : BaseController
     
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(CatalogBrandDto), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
     public async Task<IActionResult> GetTypeById([FromRoute] int id)
     {
         var result = await _service.GetById(id);
 
         if (result is null)
         {
-            return NotFound(result);
+            return NotFound(new WebApiErrorResponse((int)HttpStatusCode.NotFound, null, null));
         }
 
         return Ok(result);
@@ -42,13 +45,14 @@ public class CatalogTypeController : BaseController
     
     [HttpPost("create")]
     [ProducesResponseType(typeof(AddSomeItemResponse<int?>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
     public async Task<IActionResult> CreateItemType([FromBody] string itemType)
     {
         var result = await _service.Add(itemType);
 
         if (result is null)
         {
-            return UnprocessableEntity();
+            return UnprocessableEntity(new WebApiErrorResponse((int)HttpStatusCode.UnprocessableEntity, null, null));
         }
 
         return Ok(new AddSomeItemResponse<int?> {Id = result});
@@ -56,13 +60,14 @@ public class CatalogTypeController : BaseController
     
     [HttpPut("update")]
     [ProducesResponseType(typeof(AddSomeItemResponse<int?>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
     public async Task<IActionResult> UpdateTypeById(CatalogTypeDto dto)
     {
         var result = await _service.Update(dto);
 
         if (result is null)
         {
-            return NotFound(result);
+            return NotFound(new WebApiErrorResponse((int)HttpStatusCode.NotFound, null, null));
         }
 
         return Ok(result);
@@ -70,13 +75,14 @@ public class CatalogTypeController : BaseController
     
     [HttpDelete("delete/{id}")]
     [ProducesResponseType(typeof(AddSomeItemResponse<int?>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
     public async Task<IActionResult> DeleteItemType([FromRoute] int id)
     {
         var result = await _service.Remove(id);
 
         if (result is false)
         {
-            return NotFound(result);
+            return NotFound(new WebApiErrorResponse((int)HttpStatusCode.NotFound, null, null));
         }
 
         return Ok(result);
