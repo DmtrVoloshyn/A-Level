@@ -3,11 +3,16 @@ using Basket.Host.Services;
 using Basket.Host.Services.Interfaces;
 using Infrastructure.Extensions;
 using Infrastructure.Filters;
+using Infrastructure.RabbitMq.Messages;
 using Microsoft.OpenApi.Models;
+using Infrastructure.Configurations;
+using Infrastructure.RabbitMq;
 
 var configuration = GetConfiguration();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<RabbitMqConfiguration>(configuration.GetSection("RabbitMQ"));
 
 builder.Services.AddControllers(options =>
     {
@@ -55,6 +60,11 @@ builder.Services.AddTransient<IJsonSerializer, JsonSerializer>();
 builder.Services.AddSingleton<IRedisCacheConnectionService, RedisCacheConnectionService>();
 builder.Services.AddSingleton<ICacheService, CacheService>();
 builder.Services.AddTransient<IBasketService, BasketService>();
+
+builder.Services.AddTransient<ICustomRabbitHandler<TESTIntegrationMessage>, BasketTESTEventHandler>();
+builder.Services.RegisterRabbitMq<TESTIntegrationMessage>("hello", "hello");
+builder.Services.AddSingleton<ILogger<RabbitMqHandler<TESTIntegrationMessage>>>(sp =>
+    sp.GetRequiredService<ILoggerFactory>().CreateLogger<RabbitMqHandler<TESTIntegrationMessage>>());
 
 builder.Services.AddCors(options =>
 {

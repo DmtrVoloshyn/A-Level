@@ -1,3 +1,4 @@
+using Basket.Host.Dtos;
 using Basket.Host.Models;
 using Basket.Host.Services.Interfaces;
 
@@ -12,9 +13,9 @@ public class BasketService : IBasketService
         _cacheService = cacheService;
     }
     
-    public async Task Add(Guid userId, string data)
+    public async Task Add(BasketItem item)
     {
-        await _cacheService.AddOrUpdateAsync(userId.ToString(), data);
+        await _cacheService.AddOrUpdateAsync(item.Id, item);
     }
 
     public async Task<GetItemsResponseDto> Get(Guid userId)

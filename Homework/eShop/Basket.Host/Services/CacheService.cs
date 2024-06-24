@@ -11,6 +11,7 @@ public class CacheService : ICacheService
     private readonly IRedisCacheConnectionService _redisCacheConnectionService;
     private readonly IJsonSerializer _jsonSerializer;
     private readonly RedisConfiguration _config;
+    private readonly IDatabase _database;
 
     public CacheService(
         ILogger<CacheService> logger,
@@ -21,6 +22,7 @@ public class CacheService : ICacheService
         _logger = logger;
         _redisCacheConnectionService = redisCacheConnectionService;
         _jsonSerializer = jsonSerializer;
+        _database = GetRedisDatabase();
         _config = config.Value;
     }
 
@@ -29,25 +31,21 @@ public class CacheService : ICacheService
 
     public async Task<T> GetAsync<T>(string key)
     {
-        var redis = GetRedisDatabase();
-        
-        var serialized = await redis.StringGetAsync(key);
+        var serialized = await _database.StringGetAsync(key);
 
         return serialized.HasValue
             ? _jsonSerializer.Deserialize<T>(serialized.ToString())
             : throw new BusinessException($"Value with {key} not found");
     }
     
-    private async Task AddOrUpdateInternalAsync<T>(string key, T value,
-        IDatabase redis = null!, TimeSpan? expiry = null)
+    private async Task AddOrUpdateInternalAsync<T>(string key, T value, TimeSpan? expiry = null)
     {
-        redis = redis ?? GetRedisDatabase();
         expiry = expiry ?? _config.CacheTimeout;
 
         var cacheKey = key;
         var serialized = _jsonSerializer.Serialize(value);
 
-        if (await redis.StringSetAsync(cacheKey, serialized, expiry))
+        if (await _database.StringSetAsync(cacheKey, serialized, expiry))
         {
             _logger.LogInformation($"Cached value for key {key} cached");
         }
@@ -55,6 +53,11 @@ public class CacheService : ICacheService
         {
             _logger.LogInformation($"Cached value for key {key} updated");
         }
+    }
+    
+    public async Task<bool> DeleteBasketAsync(string id)
+    {
+        return await _database.KeyDeleteAsync(id);
     }
 
     private IDatabase GetRedisDatabase() => _redisCacheConnectionService.Connection.GetDatabase();

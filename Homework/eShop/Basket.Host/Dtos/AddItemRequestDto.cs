@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Basket.Host.Models;
+namespace Basket.Host.Dtos;
 
 public class AddItemRequestDto
 {

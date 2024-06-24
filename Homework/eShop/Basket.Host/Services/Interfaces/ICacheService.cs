@@ -4,4 +4,5 @@ public interface ICacheService
 {
     Task AddOrUpdateAsync<T>(string key ,T value);
     Task<T> GetAsync<T>(string key);
+    Task<bool> DeleteBasketAsync(string id);
 }

@@ -26,8 +26,13 @@ services:
       - Redis__Host=www.alevelwebsite.com:6380
       - Redis__CacheTimeout=00:00:10
       - PathBase=http://www.alevelwebsite.com:5003
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=15672
+      - RABBITMQ_USER=user
+      - RABBITMQ_PASS=password
     depends_on:
       - redis
+      - rabbitmq
     ports:
       - 5003:5003
   catalog.api:
@@ -40,13 +45,16 @@ services:
        - ASPNETCORE_URLS=http://+:8000
     depends_on:
       - postgres
+      - rabbitmq
     ports:
       - 8000:8000
+  
   nginx:
     image: nginx
     container_name: lde.nginx
     ports:
       - 80:80
+  
   pgadmin4:
     image: dpage/pgadmin4
     container_name: lde.pgadmin4
@@ -57,6 +65,7 @@ services:
       - postgres
     ports:
       - 8001:80 
+  
   postgres:
     image: postgres
     container_name: lde.postgres
@@ -64,11 +73,28 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - 5433:5432
+  
   redis:
     image: redis
     container_name: lde.redis
     ports:
       - 6380:6379
+  
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: lde.rabbitmq
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://rabbitmq:5672" ]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+
 networks:
   default:
     driver: bridge
