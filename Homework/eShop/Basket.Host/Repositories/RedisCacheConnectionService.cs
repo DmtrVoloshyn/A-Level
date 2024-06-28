@@ -1,8 +1,8 @@
 using Basket.Host.Configuration;
-using Basket.Host.Services.Interfaces;
+using Basket.Host.Repositories.Abstractions;
 using StackExchange.Redis;
 
-namespace Basket.Host.Services;
+namespace Basket.Host.Repositories;
 
 public class RedisCacheConnectionService : IRedisCacheConnectionService
 {

@@ -33,7 +33,7 @@ public class CatalogBffController : BaseController
         _catalogTypeService = catalogTypeService;
     }
 
-    [HttpPost]
+    [HttpGet]
     [ProducesResponseType(typeof(PaginatedItemsResponse<CatalogItemDto>), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> Items(PaginatedItemsRequest request)
     {

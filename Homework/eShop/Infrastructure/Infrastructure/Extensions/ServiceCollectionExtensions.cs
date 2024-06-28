@@ -51,19 +51,3 @@ public static class ServiceCollectionExtensions
         return services;
     }
 }
-
-public interface ICustomRabbitHandler<TIntegrationMessage> 
-    where TIntegrationMessage : IntegrationEvent
-{
-    Task HandleAsync(TIntegrationMessage @event);
-}
-
-public class BasketTESTEventHandler : ICustomRabbitHandler<TESTIntegrationMessage>
-{
-    public Task HandleAsync(TESTIntegrationMessage @event)
-    {
-        Console.WriteLine(@event.Hello);
-
-        return Task.CompletedTask;
-    }
-}

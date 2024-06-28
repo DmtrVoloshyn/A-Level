@@ -1,17 +1,19 @@
 using Basket.Host.Configuration;
+using Basket.Host.Repositories;
+using Basket.Host.Repositories.Abstractions;
 using Basket.Host.Services;
-using Basket.Host.Services.Interfaces;
+using Basket.Host.Services.Abstractions;
 using Infrastructure.Extensions;
 using Infrastructure.Filters;
-using Infrastructure.RabbitMq.Messages;
 using Microsoft.OpenApi.Models;
 using Infrastructure.Configurations;
-using Infrastructure.RabbitMq;
+using Infrastructure.RabbitMq.Messages.BasketMessages;
 
 var configuration = GetConfiguration();
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<RedisConfiguration>(configuration.GetSection("Redis"));
 builder.Services.Configure<RabbitMqConfiguration>(configuration.GetSection("RabbitMQ"));
 
 builder.Services.AddControllers(options =>
@@ -50,21 +52,14 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<AuthorizeCheckOperationFilter>();
 });
 
-builder.AddConfiguration();
-builder.Services.Configure<RedisConfiguration>(
-    builder.Configuration.GetSection("Redis"));
-
 builder.Services.AddAuthorization(configuration);
 
 builder.Services.AddTransient<IJsonSerializer, JsonSerializer>();
 builder.Services.AddSingleton<IRedisCacheConnectionService, RedisCacheConnectionService>();
-builder.Services.AddSingleton<ICacheService, CacheService>();
+builder.Services.AddSingleton<ICacheRepository, CacheRepository>();
 builder.Services.AddTransient<IBasketService, BasketService>();
 
-builder.Services.AddTransient<ICustomRabbitHandler<TESTIntegrationMessage>, BasketTESTEventHandler>();
-builder.Services.RegisterRabbitMq<TESTIntegrationMessage>("hello", "hello");
-builder.Services.AddSingleton<ILogger<RabbitMqHandler<TESTIntegrationMessage>>>(sp =>
-    sp.GetRequiredService<ILoggerFactory>().CreateLogger<RabbitMqHandler<TESTIntegrationMessage>>());
+builder.Services.RegisterRabbitMq<OrderStartedIntegrationEvent>("hello", "hello");
 
 builder.Services.AddCors(options =>
 {

@@ -4,7 +4,6 @@ using Infrastructure.Services.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
-using Infrastructure.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.RabbitMq

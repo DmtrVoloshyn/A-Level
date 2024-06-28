@@ -1,6 +1,6 @@
-namespace Basket.Host.Services.Interfaces;
+namespace Basket.Host.Repositories.Abstractions;
 
-public interface ICacheService
+public interface ICacheRepository
 {
     Task AddOrUpdateAsync<T>(string key ,T value);
     Task<T> GetAsync<T>(string key);

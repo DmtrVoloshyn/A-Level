@@ -1,20 +1,20 @@
 using Basket.Host.Configuration;
-using Basket.Host.Services.Interfaces;
+using Basket.Host.Repositories.Abstractions;
 using Infrastructure.Exceptions;
 using StackExchange.Redis;
 
-namespace Basket.Host.Services;
+namespace Basket.Host.Repositories;
 
-public class CacheService : ICacheService
+public class CacheRepository : ICacheRepository
 {
-    private readonly ILogger<CacheService> _logger;
+    private readonly ILogger<CacheRepository> _logger;
     private readonly IRedisCacheConnectionService _redisCacheConnectionService;
     private readonly IJsonSerializer _jsonSerializer;
     private readonly RedisConfiguration _config;
     private readonly IDatabase _database;
 
-    public CacheService(
-        ILogger<CacheService> logger,
+    public CacheRepository(
+        ILogger<CacheRepository> logger,
         IRedisCacheConnectionService redisCacheConnectionService,
         IOptions<RedisConfiguration> config,
         IJsonSerializer jsonSerializer)
@@ -40,7 +40,7 @@ public class CacheService : ICacheService
     
     private async Task AddOrUpdateInternalAsync<T>(string key, T value, TimeSpan? expiry = null)
     {
-        expiry = expiry ?? _config.CacheTimeout;
+        expiry ??= _config.CacheTimeout;
 
         var cacheKey = key;
         var serialized = _jsonSerializer.Serialize(value);

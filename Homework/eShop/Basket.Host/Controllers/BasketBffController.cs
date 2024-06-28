@@ -1,14 +1,12 @@
-using System.Text;
+using Basket.Host.Converters;
 using Basket.Host.Dtos;
 using Basket.Host.Models;
-using Basket.Host.Services.Interfaces;
+using Basket.Host.Services.Abstractions;
 using Infrastructure.Exceptions;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
 using Infrastructure.RabbitMq.Abstractions;
-using Infrastructure.RabbitMq.Messages;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
+using Infrastructure.RabbitMq.Messages.BasketMessages;
 
 namespace Basket.Host.Controllers;
 
@@ -17,14 +15,14 @@ public class BasketBffController : BaseController
 {
     private readonly ILogger<BasketBffController> _logger;
     private readonly IBasketService _basketService;
-    private readonly IEventPublisher<TESTIntegrationMessage> _eventPublisher;
-    private readonly IEventHandler<TESTIntegrationMessage> _eventHandler;
+    private readonly IEventPublisher<OrderStartedIntegrationEvent> _eventPublisher;
+    private readonly IEventHandler<OrderStartedIntegrationEvent> _eventHandler;
 
     public BasketBffController(
         ILogger<BasketBffController> logger,
         IBasketService basketService,
-        IEventPublisher<TESTIntegrationMessage> eventPublisher, 
-        IEventHandler<TESTIntegrationMessage> eventHandler)
+        IEventPublisher<OrderStartedIntegrationEvent> eventPublisher, 
+        IEventHandler<OrderStartedIntegrationEvent> eventHandler)
     {
         _logger = logger;
         _basketService = basketService;
@@ -33,17 +31,20 @@ public class BasketBffController : BaseController
     }
 
     [HttpPost]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(AddItemResponseDto), (int)HttpStatusCode.OK)]
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-    public async Task<IActionResult> AddItems([FromBody] BasketItem item)
+    public async Task<IActionResult> AddItems([FromBody] CustomerBasket newBasket)
     {
-        if (!TryValidateModel(item))
+        newBasket.BuyerId ??= Guid.NewGuid().ToString();
+        
+        if (!TryValidateModel(newBasket))
         {
             return BadRequest(new WebApiErrorResponse((int)HttpStatusCode.BadRequest, null, ModelState.ToString()));
         }
 
-        await _basketService.Add(item);
-        return Ok();
+        await _basketService.AddOrUpdateBasket(newBasket, newBasket.BuyerId);
+        
+        return Ok(new AddItemResponseDto {BasketId = newBasket.BuyerId});
     }
 
     [HttpGet("{id}")]
@@ -51,11 +52,10 @@ public class BasketBffController : BaseController
     [ProducesResponseType((int)HttpStatusCode.NotFound)]
     public async Task<IActionResult> GetItems([FromRoute] Guid id)
     {
-        GetItemsResponseDto responseDto;
-
+        CustomerBasket customerBasket;
         try
         {
-            responseDto = await _basketService.Get(id);
+            customerBasket = await _basketService.GetBasket(id.ToString());
         }
         catch (BusinessException e)
         {
@@ -63,14 +63,56 @@ public class BasketBffController : BaseController
             return NotFound(new WebApiErrorResponse((int)HttpStatusCode.NotFound, null, e.Message));
         }
 
-        return Ok(responseDto);
+        return Ok(customerBasket.ToDto());
+    }
+    
+    [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
+    public async Task<IActionResult> DeleteBasket([FromRoute] Guid id)
+    {
+        bool isDeleted;
+
+        try
+        {
+            isDeleted = await _basketService.DeleteBasket(id.ToString());
+        }
+        catch (BusinessException e)
+        {
+            _logger.Log(LogLevel.Error, e.Message);
+            return NotFound(new WebApiErrorResponse((int)HttpStatusCode.NotFound, null, e.Message));
+        }
+
+        return Ok(isDeleted);
+    }
+    
+    [HttpPost("{basketId}")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+    [ProducesResponseType((int)HttpStatusCode.NotFound)]
+    public async Task<IActionResult> CreateOrder([FromRoute] Guid basketId, [FromBody] CreateOrderRequestDto requestDto)
+    {
+        CustomerBasket customerBasket;
+        try
+        {
+            customerBasket = await _basketService.GetBasket(basketId.ToString());
+        }
+        catch (BusinessException e)
+        {
+            _logger.Log(LogLevel.Error, e.Message);
+            return NotFound(new WebApiErrorResponse((int)HttpStatusCode.NotFound, null, e.Message));
+        }
+
+        var order = await _basketService.CreateOrder(customerBasket, requestDto);
+        
+        return Ok(order);
     }
 
+    //TEST PRODUSING
     [HttpPost]
     public async Task<IActionResult> CreateMess()
     {
         var message = "huy";
-        using (_eventPublisher.PublishAsync(new TESTIntegrationMessage{Id = Guid.NewGuid(), Hello = message}))
+        //using (_eventPublisher.PublishAsync(new OrderStartedIntegrationEvent(Guid.NewGuid(),message)))
             return Ok($" [x] Sent {message}");
     }
 
