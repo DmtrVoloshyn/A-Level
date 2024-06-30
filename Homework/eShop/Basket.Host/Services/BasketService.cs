@@ -53,7 +53,8 @@ public class BasketService : IBasketService
                     requestDto.BuyerSurName,
                     requestDto.Email,
                     requestDto.FullAddress,
-                    requestDto.PaymentType
+                    requestDto.PaymentType,
+                    customerBasket.TotalPrice
                 ));
         }
         finally

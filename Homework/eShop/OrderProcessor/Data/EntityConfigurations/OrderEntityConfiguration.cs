@@ -13,10 +13,14 @@ namespace OrderProcessor.Data.EntityConfigurations
             builder.HasKey(o => o.Id);
 
             builder.Property(o => o.OrderGuid)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(50);
             
             builder.Property(o => o.BuyerId)
                 .IsRequired();
+
+            builder.Property(o => o.BuyerGuid)
+                .HasMaxLength(50);
 
             builder.Property(o => o.OrderStatuses)
                 .IsRequired();

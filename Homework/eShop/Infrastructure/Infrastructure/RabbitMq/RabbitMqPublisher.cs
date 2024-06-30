@@ -12,24 +12,29 @@ public class RabbitMqPublisher<TIntegrationEvent> : IEventPublisher<TIntegration
     private readonly IConnection _connection;
     private readonly IModel _channel;
     private readonly IJsonSerializer _jsonSerializer;
+    private readonly string _routingKey;
+    private readonly string _exchangeName;
+    private readonly string _queueName;
 
-    public RabbitMqPublisher(string queueName, 
+    public RabbitMqPublisher(
+        string queueName, 
         string exchangeName,
+        string routingKey,
         ConnectionFactory connectionFactory, 
         IJsonSerializer jsonSerializer)
     {
+        _queueName = queueName;
+        _exchangeName = exchangeName;
+        _routingKey = routingKey;
         _jsonSerializer = jsonSerializer;
         _connection = connectionFactory.CreateConnection();
         _channel = _connection.CreateModel();
         
-        _channel.ExchangeDeclare(exchange: exchangeName,
-            durable: false,
-            autoDelete: false,
-            arguments: null,
+        _channel.ExchangeDeclare(exchange: _exchangeName,
             type: "direct"
         );
          
-        _channel.QueueDeclare(queue: queueName,
+        _channel.QueueDeclare(queue: _queueName,
             durable: false,
             exclusive: false,
             autoDelete: false,
@@ -41,10 +46,12 @@ public class RabbitMqPublisher<TIntegrationEvent> : IEventPublisher<TIntegration
         var jsonMessage = _jsonSerializer.Serialize(@event);
         var body = Encoding.UTF8.GetBytes(jsonMessage);
          
-        _channel.BasicPublish(exchange: string.Empty,
-            routingKey: "hello",
+        _channel.BasicPublish(
+            exchange: _exchangeName,
+            routingKey: _routingKey,
             basicProperties: null,
-            body: body);
+            body: body
+            );
 
         return Task.CompletedTask;
     }

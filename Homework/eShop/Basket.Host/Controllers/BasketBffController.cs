@@ -15,19 +15,15 @@ public class BasketBffController : BaseController
 {
     private readonly ILogger<BasketBffController> _logger;
     private readonly IBasketService _basketService;
-    private readonly IEventPublisher<OrderStartedIntegrationEvent> _eventPublisher;
-    private readonly IEventHandler<OrderStartedIntegrationEvent> _eventHandler;
+
 
     public BasketBffController(
         ILogger<BasketBffController> logger,
-        IBasketService basketService,
-        IEventPublisher<OrderStartedIntegrationEvent> eventPublisher, 
-        IEventHandler<OrderStartedIntegrationEvent> eventHandler)
+        IBasketService basketService
+        )
     {
         _logger = logger;
         _basketService = basketService;
-        _eventPublisher = eventPublisher;
-        _eventHandler = eventHandler;
     }
 
     [HttpPost]
@@ -108,20 +104,20 @@ public class BasketBffController : BaseController
     }
 
     //TEST PRODUSING
-    [HttpPost]
+    /*[HttpPost]
     public async Task<IActionResult> CreateMess()
     {
         var message = "huy";
         //using (_eventPublisher.PublishAsync(new OrderStartedIntegrationEvent(Guid.NewGuid(),message)))
             return Ok($" [x] Sent {message}");
-    }
+    }*/
 
     //TEST CONSUMING
-    [HttpPost]
+    /*[HttpPost]
     public async Task<IActionResult> Consume()
     {
         var message = await _eventHandler.Consume();
 
         return Ok($"[x] Received {message}");
-    }
+    }*/
 }

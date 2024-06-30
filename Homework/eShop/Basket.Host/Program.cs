@@ -15,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<RedisConfiguration>(configuration.GetSection("Redis"));
 builder.Services.Configure<RabbitMqConfiguration>(configuration.GetSection("RabbitMQ"));
+builder.Services.Configure<RabbitMqConfiguration>(configuration.GetSection("RabbitProducers"));
+var rabbitProducerConfig = configuration.GetSection("RabbitProducers").Get<RabbitProducersConfiguration>();
 
 builder.Services.AddControllers(options =>
     {
@@ -58,8 +60,10 @@ builder.Services.AddTransient<IJsonSerializer, JsonSerializer>();
 builder.Services.AddSingleton<IRedisCacheConnectionService, RedisCacheConnectionService>();
 builder.Services.AddSingleton<ICacheRepository, CacheRepository>();
 builder.Services.AddTransient<IBasketService, BasketService>();
-
-builder.Services.RegisterRabbitMq<OrderStartedIntegrationEvent>("hello", "hello");
+builder.Services.RegisterRabbitMq<OrderStartedIntegrationEvent>(
+    rabbitProducerConfig.Producer.QueueName, 
+    rabbitProducerConfig.Producer.ExchangeName, 
+    rabbitProducerConfig.RoutingKey);
 
 builder.Services.AddCors(options =>
 {

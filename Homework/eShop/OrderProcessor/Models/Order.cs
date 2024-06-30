@@ -6,25 +6,27 @@ namespace OrderProcessor.Models;
 
 public class Order
 {
-    public Order(string id, 
-        string buyerId, 
+    public Order(string guid, 
+        string buyerGuid, 
         OrderStatuses orderStatus,
         PaymentTypes paymentType,
-        IEnumerable<OrderItem> items
+        decimal totalPrice,
+        IEnumerable<int> productIds
         )
     {
-        Id = id;
-        BuyerId = buyerId;
+        Id = guid;
+        BuyerGuid = buyerGuid;
         OrderStatus = orderStatus;
         PaymentType = paymentType;
-        Items = items;
+        TotalPrice = totalPrice;
+        ProductIds = productIds;
     }
     
-    [JsonPropertyName("id")]
+    [JsonPropertyName("order_guid")]
     public string Id { get; set; }
-
-    [JsonPropertyName("buyer_id")]
-    public string BuyerId { get; set; }
+    
+    [JsonPropertyName("buyer_guid")]
+    public string BuyerGuid { get; set; }
     
     [JsonPropertyName("order_status")]
     public OrderStatuses OrderStatus { get; set; }
@@ -32,6 +34,8 @@ public class Order
     [JsonPropertyName("payment_type")]
     public PaymentTypes PaymentType { get; set; }
     
+    public decimal TotalPrice { get; set; }
+    
     [JsonPropertyName("order_items")]
-    public IEnumerable<OrderItem> Items { get; set; }
+    public IEnumerable<int> ProductIds { get; set; }
 }

@@ -35,7 +35,7 @@ public class CatalogBffController : BaseController
 
     [HttpGet]
     [ProducesResponseType(typeof(PaginatedItemsResponse<CatalogItemDto>), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> Items(PaginatedItemsRequest request)
+    public async Task<IActionResult> Items([FromQuery] PaginatedItemsRequest request)
     {
         var result = await _catalogService.GetCatalogItemsAsync(
             request.PageSize, 
