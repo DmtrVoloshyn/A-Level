@@ -92,11 +92,8 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapDefaultControllerRoute();
-    endpoints.MapControllers();
-});
+app.MapDefaultControllerRoute();
+app.MapControllers();
 
 app.Run();
 

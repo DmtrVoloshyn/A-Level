@@ -1,6 +1,5 @@
 using Infrastructure.RabbitMq;
 using Infrastructure.RabbitMq.Abstractions;
-using Infrastructure.RabbitMq.Messages;
 using Infrastructure.RabbitMq.Messages.BasketMessages;
 using Infrastructure.Services.Interfaces;
 using Microsoft.Extensions.Options;
@@ -13,38 +12,35 @@ public class HostedService : BackgroundService
 {
     private readonly List<IDisposable> _disposables;
     private readonly IServiceScope _scope;
-    private readonly string _routingKey;
     private readonly RabbitConsumersConfiguration _config;
+    private readonly RabbitMqHandler<OrderStartedIntegrationEvent> _orderStartedIntegrationHandler;
 
-    public HostedService(IServiceProvider provider, IOptions<RabbitConsumersConfiguration> config, string routingKey)
+    public HostedService(IServiceProvider provider, IOptions<RabbitConsumersConfiguration> config)
     {
-        _routingKey = routingKey;
         _config = config.Value;
         _scope = provider.CreateScope();
         _disposables = new List<IDisposable>();
+        
+        _orderStartedIntegrationHandler = new RabbitMqHandler<OrderStartedIntegrationEvent>(
+            _config.Consumers.QueueName, 
+            _config.Consumers.ExchangeName,
+            _config.RoutingKey,
+            _scope.ServiceProvider.GetRequiredService<ConnectionFactory>(),
+            _scope.ServiceProvider.GetRequiredService<IJsonSerializer>(),
+            _scope.ServiceProvider.GetRequiredService<ICustomRabbitHandler<OrderStartedIntegrationEvent>>(),
+            _scope.ServiceProvider.GetRequiredService<ILogger<RabbitMqHandler<OrderStartedIntegrationEvent>>>());
     }
     
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        RegisterConsumer<OrderStartedIntegrationEvent>(
-            _config.Consumers.QueueName, 
-            _config.Consumers.ExchangeName);
+        RegisterConsumer();
 
         return Task.CompletedTask;
     }
 
-    private void RegisterConsumer<TIntegrationMessage>(string queueName, string exchangeName) 
-        where TIntegrationMessage 
-        : IntegrationEvent
+    private void RegisterConsumer()
     {
-        _disposables.Add(new RabbitMqHandler<TIntegrationMessage>(
-            queueName, 
-            exchangeName,
-            _routingKey,
-            _scope.ServiceProvider.GetRequiredService<ConnectionFactory>(),
-            _scope.ServiceProvider.GetRequiredService<IJsonSerializer>(),
-            _scope.ServiceProvider.GetRequiredService<ICustomRabbitHandler<TIntegrationMessage>>(),
-            _scope.ServiceProvider.GetRequiredService<ILogger<RabbitMqHandler<TIntegrationMessage>>>()));
+        _disposables.Add(_orderStartedIntegrationHandler);
     }
 
     public override Task StopAsync(CancellationToken cancellationToken)

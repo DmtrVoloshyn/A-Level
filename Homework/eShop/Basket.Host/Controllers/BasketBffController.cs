@@ -5,8 +5,6 @@ using Basket.Host.Services.Abstractions;
 using Infrastructure.Exceptions;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Authorization;
-using Infrastructure.RabbitMq.Abstractions;
-using Infrastructure.RabbitMq.Messages.BasketMessages;
 
 namespace Basket.Host.Controllers;
 

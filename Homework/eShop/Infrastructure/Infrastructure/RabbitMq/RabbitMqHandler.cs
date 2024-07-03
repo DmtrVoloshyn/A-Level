@@ -15,7 +15,7 @@ namespace Infrastructure.RabbitMq
         private readonly IConnection _connection;
         private readonly IModel _channel;
         private readonly AsyncEventingBasicConsumer _consumer;
-        private readonly TaskCompletionSource<string> _tcs;
+        private readonly ILogger<RabbitMqHandler<TIntegrationEvent>> _logger;
         private readonly string _queueName;
         private readonly string _exchangeName;
         private readonly string _routingKey;
@@ -32,12 +32,12 @@ namespace Infrastructure.RabbitMq
             _queueName = queueName;
             _exchangeName = exchangeName;
             _routingKey = routingKey;
-            ILogger<RabbitMqHandler<TIntegrationEvent>> logger1 = logger;
+            _logger = logger;
             _connection = connectionFactory.CreateConnection();
             _channel = _connection.CreateModel();
             
             _channel.ExchangeDeclare(exchange: _exchangeName,
-                type: "direct"
+                ExchangeType.Direct
                 );
 
             _channel.QueueDeclare(
@@ -48,27 +48,23 @@ namespace Infrastructure.RabbitMq
                 arguments: null
                 );
             _channel.QueueBind(queue: _queueName, exchange: _exchangeName, routingKey: _routingKey);
-
-
+            
             _consumer = new AsyncEventingBasicConsumer(_channel);
-            _tcs = new TaskCompletionSource<string>();
 
-            _consumer.Received += async(model, ea) =>
+            _consumer.Received += async (model, ea) =>
             {
                 try
                 {
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
-                    logger1.LogInformation($"Received message: {message}");
+                    _logger.LogInformation($"Received message: {message}");
 
                     var integrationEvent = jsonSerializer.Deserialize<TIntegrationEvent>(message);
                     await requiredService.HandleAsync(integrationEvent);
-                    _tcs.SetResult(message);
                 }
                 catch (Exception e)
                 {
-                    logger1.LogError(e, "Error processing message");
-                    _tcs.SetResult($"Error: {e.Message}");
+                    _logger.LogError(e, "Error processing message");
                 }
             };
 
@@ -80,9 +76,9 @@ namespace Infrastructure.RabbitMq
         }
 
         //TEST METHOD
-        public Task<string> Consume()
+        public Task Consume()
         {
-            return _tcs.Task;
+            return Task.CompletedTask;
         }
         
         public void Dispose()

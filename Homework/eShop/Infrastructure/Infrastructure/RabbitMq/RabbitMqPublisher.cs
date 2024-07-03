@@ -31,7 +31,7 @@ public class RabbitMqPublisher<TIntegrationEvent> : IEventPublisher<TIntegration
         _channel = _connection.CreateModel();
         
         _channel.ExchangeDeclare(exchange: _exchangeName,
-            type: "direct"
+            type: ExchangeType.Direct
         );
          
         _channel.QueueDeclare(queue: _queueName,
